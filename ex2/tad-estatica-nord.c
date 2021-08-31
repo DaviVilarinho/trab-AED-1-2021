@@ -68,6 +68,7 @@ int insere_elem(lista_p lista, INFO_ARMAZENADA_ARGUMENTO inserir) {
 void shift_esquerda(lista_p lista, int pos) {
     int tam = tamanho(lista);
     if (pos > 0 && pos <= tam) {
+        // assignar no atual o proximo ate o proximo ser o ultimo
         for (int i = pos-1; i < MAX-1; i++) {
             strcpy(lista->vetor[i], lista->vetor[i+1]);
         }
@@ -75,7 +76,22 @@ void shift_esquerda(lista_p lista, int pos) {
     }
 }
 
-int remove_elem(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover);
+int remove_elem(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover) {
+    if (!lista_vazia(lista)) {
+        for (int i = 0; i < MAX; i++) {
+            // encontrar string que seja igual a que quer remover
+            if (strcmp(remover, lista->vetor[i]) == 0) {
+
+                shift_esquerda(lista, i+1); // i+1 porque fiz em relacao a primeiro, segundo..., nao leitura de array
+                return 1;
+            }
+            return 0;
+        }
+    } else {
+        return 0;
+    }
+}
+
 INFO_ARMAZENADA_ARGUMENTO get_elem_pos(lista_p, int pos, int *ok);
 int remove_todas(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover);
 int remove_maior(lista_p lista);
