@@ -85,14 +85,25 @@ int remove_elem(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover) {
                 shift_esquerda(lista, i+1); // i+1 porque fiz em relacao a primeiro, segundo..., nao leitura de array
                 return 1;
             }
-            return 0;
         }
+        return 0;
     } else {
         return 0;
     }
 }
 
-INFO_ARMAZENADA_ARGUMENTO get_elem_pos(lista_p, int pos, int *ok);
+INFO_ARMAZENADA_ARGUMENTO get_elem_pos(lista_p lista, int pos, int *ok) {
+    if (pos > tamanho(lista) || pos < 1) {
+        // pegar posicoes invalidas nao pode
+        *ok = 0;
+        return NULL;
+
+    } else {
+        *ok = 1;
+        return lista->vetor[pos-1];
+    }
+}
+
 int remove_todas(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover);
 int remove_maior(lista_p lista);
 

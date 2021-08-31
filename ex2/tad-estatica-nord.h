@@ -17,6 +17,6 @@ int lista_cheia(lista_p lista);
 int tamanho(lista_p lista);
 int insere_elem(lista_p lista, INFO_ARMAZENADA_ARGUMENTO inserir);
 int remove_elem(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover);
-INFO_ARMAZENADA_ARGUMENTO get_elem_pos(lista_p, int pos, int *ok);
+INFO_ARMAZENADA_ARGUMENTO get_elem_pos(lista_p lista, int pos, int *ok);
 int remove_todas(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover);
 int remove_maior(lista_p lista);
