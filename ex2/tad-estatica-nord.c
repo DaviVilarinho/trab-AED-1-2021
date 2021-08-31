@@ -57,7 +57,7 @@ int tamanho(lista_p lista) {
 int insere_elem(lista_p lista, INFO_ARMAZENADA_ARGUMENTO inserir) {
     if (!lista_cheia(lista)) {
         strcpy(lista->vetor[tamanho(lista)], inserir);
-        (lista->tamanho)++;
+        lista->tamanho = lista->tamanho + 1;
         return 1;
     } else {
         return 0;
@@ -72,7 +72,7 @@ void shift_esquerda(lista_p lista, int pos) {
         for (int i = pos-1; i < MAX-1; i++) {
             strcpy(lista->vetor[i], lista->vetor[i+1]);
         }
-        (lista->tamanho)--;
+        lista->tamanho = lista->tamanho - 1;
     }
 }
 
