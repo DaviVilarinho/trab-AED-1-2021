@@ -124,5 +124,19 @@ int remove_todas(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover) {
     }
 }
 
-int remove_maior(lista_p lista);
+int remove_maior(lista_p lista) {
+    if (!lista_vazia(lista)) {
+        int indice_maior = 0; 
+        for (int i = 1; i < tamanho(lista); i++) {
+            if (strlen(lista->vetor[i]) > strlen(lista->vetor[indice_maior])) 
+                indice_maior = i;
+        }
+
+        shift_esquerda(lista, indice_maior+1);
+
+        return 1;
+    } else {
+        return 0; // nao ha o que remover sem maior
+    }
+}
 

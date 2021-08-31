@@ -110,6 +110,14 @@ int main (void) {
                 }
                 break;
 
+            case 7:
+                if (remove_maior(lista)) {
+                    printf("\nMaior removido com sucesso!\n\n");
+                } else {
+                    printf("\nNada Removido\n\n");
+                }
+                break;
+
 
             default:
                 escolha = 0;
