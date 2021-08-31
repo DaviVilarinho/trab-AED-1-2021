@@ -140,3 +140,15 @@ int remove_maior(lista_p lista) {
     }
 }
 
+int concat_listas(lista_p lista1, lista_p lista2) {
+    int inseriu = 0;
+    for (int i = 0; i < lista2->tamanho; i++) {
+        if (insere_elem(lista1, lista2->vetor[i]))
+            inseriu++;
+    }
+
+    if (inseriu == lista2->tamanho)
+        return 1;
+    else
+        return 0;
+}

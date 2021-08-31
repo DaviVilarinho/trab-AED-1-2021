@@ -25,8 +25,9 @@ void print(lista_p lista) {
     printf("\n\n");
 }
 
-void print_menu() {
-    printf("\n= = = MENU = = =\n");
+void print_menu(int indice) {
+    printf("\n= = = = =MENU = = = = =\n");
+    printf("\n= Estamos na lista %i =\n", indice);
     printf("\t[1] Nova String\n");
     printf("\t[2] Remove String\n");
     printf("\t[3] Printa Lista\n");
@@ -34,6 +35,8 @@ void print_menu() {
     printf("\t[5] Apagar Lista\n");
     printf("\t[6] Remove String todas\n");
     printf("\t[7] Remove Maior\n");
+    printf("\t[8] Concatenar a outra lista nessa\n");
+    printf("\t[9] Alternar a outra lista\n");
     printf("\t[0] Sair\n");
     printf("ESCOLHA: ");
 }
@@ -59,23 +62,27 @@ INFO_ARMAZENADA_ARGUMENTO receber_a_remover() {
 
 int main (void) {
     int escolha = 1;
-    lista_p lista = cria_lista();
+    int indice_lista_ativa = 0;
+
+    lista_p listas[2] = {cria_lista(), cria_lista()};
+
+    lista_p *lista_ativa = &listas[indice_lista_ativa]; // endereco para lista ativa, captar o primeiro
 
     while (escolha) {
-        print_menu();
+        print_menu(indice_lista_ativa);
         scanf("%i", &escolha);
         setbuf(stdin, NULL);
 
         switch (escolha) {
             case 1:
-                if (insere_elem(lista, recebe_elemento()))
+                if (insere_elem(*lista_ativa, recebe_elemento()))
                     printf("Inserido com sucesso");
                 else
                     printf("Removido com sucesso");
                 break;
 
             case 2:
-                if (remove_elem(lista, receber_a_remover())) {
+                if (remove_elem(*lista_ativa, receber_a_remover())) {
                     printf("\nRemovido com sucesso!\n\n");
                 } else {
                     printf("\nNada Removido\n\n");
@@ -84,18 +91,18 @@ int main (void) {
                 break;
 
             case 3:
-                print(lista);
+                print(*lista_ativa);
                 break;
 
             case 4:
-                if (esvazia_lista(lista))
+                if (esvazia_lista(*lista_ativa))
                     printf("Esvaziada com sucesso");
                 else
                     printf("Não esvaziada...");
                 break;
 
             case 5:
-                if (apaga_lista(&lista)) 
+                if (apaga_lista(lista_ativa)) 
                     printf("\nApagada com Sucesso\n");
                 else 
                     printf("\nNao foi possivel apagar\n");
@@ -103,7 +110,7 @@ int main (void) {
                 break;
 
             case 6:
-                if (remove_todas(lista, receber_a_remover())) {
+                if (remove_todas(*lista_ativa, receber_a_remover())) {
                     printf("\nTodos maiores removidos com sucesso!\n\n");
                 } else {
                     printf("\nNada Removido\n\n");
@@ -111,11 +118,24 @@ int main (void) {
                 break;
 
             case 7:
-                if (remove_maior(lista)) {
+                if (remove_maior(*lista_ativa)) {
                     printf("\nMaior removido com sucesso!\n\n");
                 } else {
                     printf("\nNada Removido\n\n");
                 }
+                break;
+
+            case 8:
+                if (concat_listas(*lista_ativa, listas[(indice_lista_ativa+1)%2]))
+                    printf("\nConcatenadas com sucesso\n");
+                else
+                    printf("\nNao foi possivel concatenar TUDO\n");
+                break;
+
+            case 9:
+                printf("Alternada a lista\n");
+                indice_lista_ativa = (indice_lista_ativa + 1) % 2;
+                lista_ativa = &listas[indice_lista_ativa];
                 break;
 
 
@@ -126,4 +146,3 @@ int main (void) {
 
     return 0;
 }
-
