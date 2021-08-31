@@ -30,6 +30,7 @@ int esvazia_lista(lista_p lista) {
 }
 
 int apaga_lista(lista_p *lista) {
+    esvazia_lista(*lista);
     free(*lista);
     *lista = NULL;
 
@@ -104,6 +105,24 @@ INFO_ARMAZENADA_ARGUMENTO get_elem_pos(lista_p lista, int pos, int *ok) {
     }
 }
 
-int remove_todas(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover);
+int remove_todas(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover) {
+    if (!lista_vazia(lista)) {
+        int i = 0;
+        int removidos = 0;
+        while (i < lista->tamanho) {
+            if (strcmp(lista->vetor[i], remover) == 0) {
+                shift_esquerda(lista, i+1);
+                removidos++;
+            } else {
+                i++;
+            }
+        }
+
+        return removidos;
+    } else {
+        return 0; 
+    }
+}
+
 int remove_maior(lista_p lista);
 

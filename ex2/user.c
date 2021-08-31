@@ -19,7 +19,7 @@ void print(lista_p lista) {
 
         char *string = get_elem_pos(lista, i, &ok);
         if (ok)
-            printf("%s ", string);
+            printf("%s", string);
     }
 
     printf("\n\n");
@@ -102,13 +102,13 @@ int main (void) {
                         
                 break;
 
-//          case 6:
-//              if (remove_maior(&lista)) {
-//                  printf("\nTodos maiores removidos com sucesso!\n\n");
-//              } else {
-//                  printf("\nNada Removido\n\n");
-//              }
-//              break;
+            case 6:
+                if (remove_todas(lista, receber_a_remover())) {
+                    printf("\nTodos maiores removidos com sucesso!\n\n");
+                } else {
+                    printf("\nNada Removido\n\n");
+                }
+                break;
 
 
             default:
