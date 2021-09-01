@@ -1,4 +1,4 @@
-#include "lista.h"
+#include "tad-lista-ciclica-nord.h"
 #include <stdlib.h>
 
 struct node {
