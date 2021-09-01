@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "lista.h"
+#include "tad-lista-ciclica-nord.h"
 
 int main (void)
 {

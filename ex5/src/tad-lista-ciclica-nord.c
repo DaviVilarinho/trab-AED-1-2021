@@ -1,9 +1,9 @@
 #include "tad-lista-ciclica-nord.h"
 #include <stdlib.h>
 
-struct node {
+struct no {
   char info;
-  struct node *next;
+  struct no *prox;
 };
 
 Lista cria_lista (void)
@@ -16,99 +16,90 @@ int lista_vazia (Lista lst)
   return (lst == NULL);
 }
 
-// insercao no inicio
-int insere_elem (Lista *lst, char elem)
+// precisa do ponteiro pois modifica Head`s de outros locais
+int insere_final (Lista *lst, char elem)
 {
-  Lista Node = (Lista) malloc(sizeof(struct node));
+  // aloca e preenche
+  Lista N = (Lista) malloc( sizeof(struct no) );
+  if (N == NULL) { return 0; }
+  N->info = elem;
+  N->prox = *lst;
 
-  if (Node == NULL)
-    return 0; // falha ao alocar
-
-  // insercao mais imples, sempre no inicio
-  Node->info = elem;
-  Node->next = *lst;
-  *lst = Node;
-
+  // CASO lista esteja vazia
+  if (lista_vazia(*lst))
+  {
+    *lst = N; // lista aponta pro novo no ( `novo final` )
+    N->prox = *lst; // novo no aponta pra ele msm 
+  }
+  // CASO lista populada
+  else
+  {
+    Lista aux = *lst; // aux aponta pra head
+    while (aux->prox != *lst)
+    {
+      aux = aux->prox;
+    }
+    aux->prox = N;
+  }
   return 1;
 }
 
-// remocao especifica
-int remove_elem (Lista *lst, char elem)
+// novamente recebemos via * pois precisamos mudar end do Head
+int remove_ini (Lista *lst)
 {
-  // lista_vazia testa a Head
-  if (lista_vazia(*lst) == 1)
-    return 0; // falha ao alocar
-
-  Lista aux = *lst; // Ponteiro auxiliar para o primeiro nó
-
-  // primeiro da lista eh o procurado
-  if (aux->info == elem)
+  // CASO lista vazia
+  if (lista_vazia(*lst))
   {
-    *lst = aux->next; // Head aponta pro segundo (prox) nó
-    free(aux);
-    return 1;
+    return 0;
   }
 
-  // percorrimento até achar o elem ou final de lista
-  while (aux->next != NULL && aux->next->info != elem)
-    aux = aux->next;
+  // CASO lista populada com 1 elemento
+  if ( (*lst)->prox == (*lst) )
+  {
+    apaga_lista(lst);
+    return 1;
+  }
+  // CASO contrario, lista populada
 
-  if (aux->next == NULL)
-    return 0; // acabou a lista, `elem` nao esta nela
+  // helpers de movimentacao
+  Lista aux = *lst;
+  Lista aux2 =  aux->prox;
 
-  // para `elem` != primeiro nó
-  Lista aux2 = aux->next; // Aponta nó a ser removido
-  aux->next = aux2->next; // Retira nó da lista
-  free(aux2); // Libera memória alocada
-  
+  // trocando o no inicial
+  aux->info = aux2->info;
+  aux->prox = aux2->prox;
+
+  // liberando o no solto pra evitar memory leak
+  free(aux2);
+  aux2 = NULL;
+
   return 1;
 }
 
+// dinamica nao tem diferenca entre apaga-esvazia
 int apaga_lista (Lista *lst)
 {
-  if (lst == NULL)
-    return 1; // sucesso pois lista nao existe ou ja apagada
-
-  // caso mais simples, sem elems na lista
-  if (lista_vazia(*lst) == 1)
+  // CASO lista vazia OU apenas 1 elemento
+  if ( (lista_vazia(*lst) == 1) || ( *lst == (*lst)->prox ) )
   {
-    free(lst);
-    return 1; // sucesso
-  }
-
-  // caso contrario, libera cada no ate chegar ao fim da lista
-  Lista aux = *lst; // apontando para Head
-  while(aux->next != NULL)
-  {
-    aux->next = *lst;
-    *lst = (*lst)->next;
-    free(aux);
-    aux->next = NULL; // prevenindo segfault
-  }
-
-  return 1; // sucesso
-}
-
-int esvazia_lista (Lista *lst)
-{
-  if (lista_vazia(*lst) == 1)
-    return 1; // nada a ser feito
-
-  // lista com 1 elemento
-  if ((*lst)->next = NULL)
-  {
-    lst = NULL;
+    free(*lst);
     return 1;
   }
-
-  // lista populada
-  while ((*lst)->next != NULL)
+  // CASO lista com 1+ elems
+  else
   {
-    Lista aux = *lst;
-    (*lst)->next = (*lst)->next->next;
-    aux = NULL;
+    Lista aux = (*lst)->prox; // aux aponta pro primeiro no
+    Lista aux2 = NULL; 
+    while ( (*lst)->prox != *lst ) // vem limpando ate voltar pro inicial
+    {
+      aux2 = aux->prox; // aux2 aponta pro segundo no
+      (*lst)->prox = aux2; // a lista `esquece` o primeiro no
+      free(aux); // primeiro no eh liberado
+      aux = aux2; // aux aponta pro `novo primeiro` no
+    }
+    free(*lst);
   }
-  
+
   return 1;
 }
 
@@ -124,10 +115,10 @@ char *get_elem_pos (Lista *lst, char elem_procurado, int *sucesso)
 
   // resto dos casos percorremos toda a lista
   Lista aux = *lst;
-  while (aux->next != NULL && (aux->info != elem_procurado))
-    aux->next = aux->next->next; // avancar enquanto nao achamos
+  while (aux->prox != NULL && (aux->info != elem_procurado))
+    aux->prox = aux->prox->prox; // avancar enquanto nao achamos
 
-  if (aux->next == NULL && (aux->info != elem_procurado))
+  if (aux->prox == NULL && (aux->info != elem_procurado))
   {
     *(sucesso) = 0;
     return sucesso; // falha, elem nao esta na lista
@@ -137,4 +128,4 @@ char *get_elem_pos (Lista *lst, char elem_procurado, int *sucesso)
   return sucesso; // ao sair do loop e passar no if, temos sucesso
 }
 
-
+// TODO: insere_inicio, insere_pos, remove_fim, remove_vogais

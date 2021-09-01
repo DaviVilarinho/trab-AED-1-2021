@@ -1,7 +1,8 @@
 #ifndef HEADER_INCL
 #define HEADER_INCL
 
-typedef struct node *Lista;
+struct no;
+typedef struct no *Lista;
 
 Lista cria_lista (void);
 int lista_vazia (Lista lst);
