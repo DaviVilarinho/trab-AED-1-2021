@@ -1,15 +1,28 @@
 # referencia: https://stackoverflow.com/q/7004702
 
+# ------------------------------------------------
+# Generic Makefile
+#
+# Author: yanick.rochon@gmail.com
+# Date  : 2011-08-10
+#
+# Changelog :
+#   2010-11-05 - first version
+#   2011-08-10 - added structure : sources, objects, binaries
+#                thanks to http://stackoverflow.com/users/128940/beta
+#   2017-04-24 - changed order of linker params
+# ------------------------------------------------
+
 # project name (generate executable with this name)
 TARGET   = app
 
 CC       = gcc
 # compiling flags here
-CFLAGS   = -std=c99 -Wall -I. -g
+CFLAGS   = -std=c99 -Wall -I.
 
 LINKER   = gcc
 # linking flags here
-LFLAGS   = -Wall -I.
+LFLAGS   = -Wall -I. -lm
 
 # change these to proper directories where each file should be
 SRCDIR   = src
@@ -23,19 +36,19 @@ rm       = rm -f
 
 
 $(BINDIR)/$(TARGET): $(OBJECTS)
-    @$(LINKER) $(OBJECTS) $(LFLAGS) -o $@
-    @echo "Linking complete!"
+	@$(LINKER) $(OBJECTS) $(LFLAGS) -o $@
+	@echo "Linking complete!"
 
 $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
-    @$(CC) $(CFLAGS) -c $< -o $@
-    @echo "Compiled "$<" successfully!"
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "Compiled "$<" successfully!"
 
 .PHONY: clean
 clean:
-    @$(rm) $(OBJECTS)
-    @echo "Cleanup complete!"
+	@$(rm) $(OBJECTS)
+	@echo "Cleanup complete!"
 
 .PHONY: remove
 remove: clean
-    @$(rm) $(BINDIR)/$(TARGET)
-    @echo "Executable removed!"
+	@$(rm) $(BINDIR)/$(TARGET)
+	@echo "Executable removed!"
