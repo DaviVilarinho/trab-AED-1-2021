@@ -92,8 +92,16 @@ int main (void)
         }
 
       case 7:
-
-        break;
+        if (remove_fim(&lista))
+        {
+          fprintf(stdout, "removido com sucesso\n");
+          break;
+        }
+        else
+        {
+          fprintf(stdout, "falha ao remover\n");
+          break;
+        }
 
       case 8:
 

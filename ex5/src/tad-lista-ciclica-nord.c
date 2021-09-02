@@ -56,7 +56,7 @@ int remove_ini (Lista *lst) {
   // CASO lista populada com 1 elemento
   if ( (*lst)->prox == (*lst) )
   {
-    apaga_lista(lst);
+    (*lst) = NULL;
     return 1;
   }
   // CASO contrario, lista populada
@@ -207,4 +207,21 @@ int insere_pos (Lista *lst, int pos, char elem)
   return 1;
 }
 
-// int remove_fim(Lista *lst) 
+int remove_fim(Lista *lst) 
+{
+  // CASO lista vazia OU nula
+  if (lista_vazia(*lst) || *lst == NULL)
+  {
+    return 0;
+  }
+
+  // CASO lista com 1 elemento
+  if ( (*lst)->prox == *lst )
+  {
+    remove_ini(&(*lst)); // sem diferencas
+    return 1;
+  }
+
+
+  return 0;
+}
