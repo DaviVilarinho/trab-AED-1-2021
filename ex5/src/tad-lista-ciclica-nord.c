@@ -126,7 +126,7 @@ int get_elem_pos (Lista lst, int pos, char *c)
   return 1;
 }
 
-// TODO:  insere_pos, remove_fim, remove_vogais
+// TODO: remove_fim, remove_vogais
 
 int insere_inicio (Lista *lst, char elem)
 {
@@ -168,13 +168,31 @@ int insere_pos (Lista *lst, int pos, char elem)
   {
     return 0; // vazia so pode na primeira posicao
   }
-  
-  Lista aux = *lst; // aux aponta pro primeiro no
-  int contador = 1;
 
-  while (contador != (pos-1) && aux->prox != *lst)
+  if (pos == 1) // inserir em 1 eh facil
   {
+    insere_inicio(&(*lst), elem);
+    return 1;
+  }
+  
+  int contador = 2; // para inserirmos corretamente
+  Lista aux = (*lst)->prox;
+  Lista aux2 = *lst;
+
+  if (aux == *lst && pos == 1) // lista com 1 elemento
+  {
+    insere_final( &(*lst), elem );
+  }
+  else if (aux == *lst && pos != 1)
+  {
+    return 0; // 1 elemento podemos apenas inserir na pos 1
+  }
+
+  while ( (contador < pos) && (aux != *lst) )
+  {
+    // avancamos
     aux = aux->prox;
+    aux2 = aux2->prox;
     contador++;
   }
 
@@ -183,8 +201,10 @@ int insere_pos (Lista *lst, int pos, char elem)
     return 0;
   } 
 
-  // passou do while e do if estamos na pos desejada
-  N->prox = aux->prox;
-  aux->prox = N;
+  // passou do while e do if estamos na posicao
+  N->prox = aux;
+  aux2->prox = N;
   return 1;
 }
+
+// int remove_fim(Lista *lst) 

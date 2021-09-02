@@ -10,3 +10,4 @@ int get_elem_pos (Lista lst, int elem_procurado, char *sucesso);
 
 int insere_inicio (Lista *, char);
 int insere_pos (Lista *lst, int pos, char c);
+int remove_fim(Lista *lst);

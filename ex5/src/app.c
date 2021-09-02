@@ -18,7 +18,8 @@ int main (void)
   char c;
   // caso queira colocar item em det posicao
   int i;
-  Lista lista; 
+  // a lista em si
+  Lista lista = cria_lista(); 
 
   do
   {
@@ -28,10 +29,6 @@ int main (void)
     
     switch (op)
     {
-      case 0:
-        lista = cria_lista();
-        break;
-
       case 1:
         imprime_lista(lista);
         break;
@@ -117,7 +114,6 @@ int main (void)
 void imprime_menu (void)
 {
   fprintf(stdout, "\n---------- MENU ----------\n");
-  fprintf(stdout, "(0) criar a lista\n");
   fprintf(stdout, "(1) imprimir a lista\n");
   fprintf(stdout, "(2) inserir no final\n");
   fprintf(stdout, "(3) remover do inicio\n");
