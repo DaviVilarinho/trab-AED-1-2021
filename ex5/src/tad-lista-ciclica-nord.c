@@ -45,10 +45,9 @@ int insere_final (Lista *lst, char elem)
 }
 
 // novamente recebemos via * pois precisamos mudar end do Head
-int remove_ini (Lista *lst)
-{
-  // CASO lista vazia
-  if (lista_vazia(*lst))
+int remove_ini (Lista *lst) {
+  // CASO lista vazia OU nula
+  if (lista_vazia(*lst) || *lst == NULL)
   {
     return 0;
   }
@@ -79,6 +78,10 @@ int remove_ini (Lista *lst)
 // dinamica nao tem diferenca entre apaga-esvazia
 int apaga_lista (Lista *lst)
 {
+  // caso nao haja lista no end passado
+  if (*lst == NULL)
+    return 0;
+
   // CASO lista vazia OU apenas 1 elemento
   if ( (lista_vazia(*lst) == 1) || ( *lst == (*lst)->prox ) )
   {
@@ -103,29 +106,79 @@ int apaga_lista (Lista *lst)
   return 1;
 }
 
-// TODO : modificar os retornos
-char *get_elem_pos (Lista *lst, char elem_procurado, int *sucesso)
+// captura elem da pos passada (inverso doq o prof faz)
+int get_elem_pos (Lista lst, int pos, char *c)
 {
-  // caso + simples encontramos de imediato
-  if ((*lst)->info == elem_procurado)
+  if (lista_vazia(lst) || pos <= 0)
+    return -1;
+
+  int contador = 1;
+  Lista aux = lst;
+
+  while (aux->prox != lst && contador < pos)
   {
-    *(sucesso) = 1; // sucesso
-    return sucesso;
+    aux = aux->prox;
+    contador++;
   }
 
-  // resto dos casos percorremos toda a lista
-  Lista aux = *lst;
-  while (aux->prox != NULL && (aux->info != elem_procurado))
-    aux->prox = aux->prox->prox; // avancar enquanto nao achamos
-
-  if (aux->prox == NULL && (aux->info != elem_procurado))
-  {
-    *(sucesso) = 0;
-    return sucesso; // falha, elem nao esta na lista
-  }
-
-  *(sucesso) = 1;
-  return sucesso; // ao sair do loop e passar no if, temos sucesso
+  if (contador != pos)
+    return -1; // posicao nao existe na lista
+  
+  *c = aux->info; // retorno implicito do elem procurado
+  return 1;
 }
 
-// TODO: insere_inicio, insere_pos, remove_fim, remove_vogais
+// TODO:  insere_pos, remove_fim, remove_vogais
+
+int insere_inicio (Lista *lst, char elem)
+{
+  // aloca e preenche
+  Lista N = (Lista) malloc( sizeof(struct no) );
+  if (N == NULL) { return 0; }
+  N->info = elem;
+
+  // CASO lista esteja vazia
+  if (lista_vazia(*lst))
+  {
+    *lst = N;
+    N->prox = (*lst)->prox;
+    return 1;
+  }
+
+  N->prox = (*lst)->prox;
+  (*lst)->prox = N; // N eh o `novo tail` 
+
+  return 1;
+}
+
+int insere_pos (Lista *lst, int pos, char elem)
+{
+  // aloca e preenche
+  Lista N = (Lista) malloc( sizeof(struct no) );
+  if (N == NULL) { return 0; }
+  N->info = elem;
+
+  if (lista_vazia(*lst) && pos != 1)
+  {
+    return 0; // vazia so pode na primeira posicao
+  }
+  
+  Lista aux = *lst; // aux aponta pro primeiro no
+  int contador = 1;
+
+  while (contador != (pos-1) && aux->prox != *lst)
+  {
+    aux = aux->prox;
+    contador++;
+  }
+
+  if (contador != pos) // voltamos pro inicio e nao eh a pos desejada
+  {
+    return 0;
+  } 
+
+  // passou do while e do if estamos na pos desejada
+  N->prox = aux->prox;
+  aux->prox = N;
+  return 1;
+}
