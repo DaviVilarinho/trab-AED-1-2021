@@ -231,21 +231,19 @@ int remove_fim(Lista *lst)
   }
 
   // CASO lista populada
-  Lista remover = *lst; // pra podermos dar free no `antigo fim`
-  Lista aux = *lst;
-  Lista aux2 = aux->prox;
+  Lista aux = (*lst)->prox; // segundo elemento 
+  Lista retardatario = (*lst); // elemento anterior
 
-  while (aux2 != *lst)
+  // rodar o ciclo até que a gnt encontre o que aponta pra head
+  while (aux->prox != *lst) 
   {
-    aux2 = aux2->prox;
     aux = aux->prox;
+    retardatario = retardatario->prox;
   }
 
-  // saimos do while estamos no `novo fim`
-  *lst = aux2;
-  (*lst)->prox = aux;
-  free(remover);
-  remover = NULL;
+  // desalocar e definir nova referencia do anterior a antiga head
+  free(aux); aux = NULL;
+  retardatario->prox = *lst; // retardatario fecha o ciclo
 
   return 1;
 }
