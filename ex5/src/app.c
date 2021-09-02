@@ -104,8 +104,16 @@ int main (void)
         }
 
       case 8:
-
-        break;
+        if (remove_vogais(&lista))
+        {
+          fprintf(stdout, "sucesso\n");
+          break;
+        }
+        else
+        {
+          fprintf(stdout, "falha\n");
+          break;
+        }
 
       case 9:
         printf("\n[...] saindo\n");

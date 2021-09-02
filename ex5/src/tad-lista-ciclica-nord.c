@@ -1,5 +1,6 @@
 #include "tad-lista-ciclica-nord.h"
 #include <stdlib.h>
+#include <ctype.h> // para comparar vogal
 
 struct no {
   char info;
@@ -247,3 +248,33 @@ int remove_fim(Lista *lst)
 
   return 1;
 }
+
+// encapsulada
+int eh_vogal (char c)
+{
+  char ch = tolower(c);
+  if ( ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' )
+    return 1;
+  else
+    return 0;
+}
+
+int remove_vogais (Lista *lst)
+{
+  if (lista_vazia(*lst))
+  {
+    return 0;
+  }
+
+  // CASO lista com 1 elemento
+  if ( (*lst)->prox == *lst && eh_vogal((*lst)->info) )
+  {
+    remove_ini(lst);
+    return 1;
+  }
+
+  return 0;
+
+}
+
+
