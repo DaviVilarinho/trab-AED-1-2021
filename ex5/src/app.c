@@ -92,7 +92,7 @@ int main (void)
         }
 
       case 7:
-        if (remove_fim(&lista))
+        if ( remove_fim(&lista) )
         {
           fprintf(stdout, "removido com sucesso\n");
           break;

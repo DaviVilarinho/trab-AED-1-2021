@@ -114,6 +114,14 @@ int get_elem_pos (Lista lst, int pos, char *c)
     return -1;
 
   Lista aux = lst;
+
+  // CASO lista com 1 elemento
+  if ( &(lst)->prox == &lst )
+  {
+    *c = lst->info;
+    return 1;
+  }
+
   while (pos > 1)
   {
     aux = aux->prox;
@@ -222,6 +230,22 @@ int remove_fim(Lista *lst)
     return 1;
   }
 
+  // CASO lista populada
+  Lista remover = *lst; // pra podermos dar free no `antigo fim`
+  Lista aux = *lst;
+  Lista aux2 = aux->prox;
 
-  return 0;
+  while (aux2 != *lst)
+  {
+    aux2 = aux2->prox;
+    aux = aux->prox;
+  }
+
+  // saimos do while estamos no `novo fim`
+  *lst = aux2;
+  (*lst)->prox = aux;
+  free(remover);
+  remover = NULL;
+
+  return 1;
 }
