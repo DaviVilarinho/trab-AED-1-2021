@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include "AED-EX4.h"
 
+struct no {
+    int info;
+    Lista prox;
+};
+
 //Cria uma lista
 Lista cria_lista ()
 {
@@ -28,6 +33,7 @@ int apaga_lista (Lista *lst)
 {
     esvazia_lista (lst); //Esvazia a lista
     free (*lst); //Dá free no nó cabeçalho
+    return 1;
 }
 
 //Esvazia a lista, mas MANTÉM o nó cabeçalho
@@ -166,5 +172,29 @@ int intercalar (Lista *lst1, Lista *lst2, Lista *lst3)
         cont2--;
     }
   
+    return 1;
+}
+
+int inverte_lista(Lista *lst) {
+    if (*lst == NULL) return 0; // se lista vazia nao há inversao
+
+
+    Lista novo_inicio = *lst;
+    Lista anterior    = NULL;
+    Lista salva_prox;
+ 
+    while (novo_inicio != NULL) {
+        salva_prox = novo_inicio->prox; // salvo o proximo elemento da lista "em ordem"
+
+        novo_inicio->prox = anterior;   // o proximo é o anterior porque estamos virando
+
+        anterior          = novo_inicio;
+
+        novo_inicio       = salva_prox;
+    }
+
+    novo_inicio = anterior;
+    *lst = anterior;
+
     return 1;
 }

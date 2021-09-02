@@ -3,6 +3,21 @@
 #include <unistd.h>
 #include "AED-EX4.h"
 
+void printa_lista(Lista lista) {
+
+    int var;
+    int pos = 0;
+
+    while(get_elem_pos (&lista, pos, &var))
+    {
+        printf("%d ", var);
+        pos++;
+    }
+
+    printf("\n");
+    sleep (1);
+}
+
 int main ()
 {
     Lista lista, lista2, lista_int, lista_rev;
@@ -40,16 +55,8 @@ int main ()
 
                 printf("\nLista: ");
 
-                pos = 0;
+                printa_lista(lista);
 
-                while(get_elem_pos (&lista, pos, &var))
-                {
-                    printf("%d ", var);
-                    pos++;
-                }
-
-                printf("\n");
-                sleep (1);
                 break;
 
             case 3:
@@ -141,19 +148,10 @@ int main ()
                 break;
 
             case 11:
-
+                inverte_lista(&lista);
                 printf("\nLista Invertida: ");
-                tam2 = tamanho (&lista);
-                cont = tam2 - 1;
+                printa_lista(lista);
 
-                for (int i = 0; i < tam2; i++)
-                {
-                    get_elem_pos(&lista, cont, &var2);
-                    printf("%d ", var2);
-                    cont--;
-                }
-
-                printf("\n");
                 sleep (1);
                 break;
 
@@ -172,3 +170,4 @@ int main ()
 
     return 0;
 }
+

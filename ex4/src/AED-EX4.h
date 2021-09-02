@@ -1,8 +1,4 @@
-struct no 
-{
-    int info;
-    struct no * prox;
-};
+struct no;
 
 typedef struct no * Lista;
 
