@@ -13,7 +13,8 @@ Lista cria_lista (void)
 
 int lista_vazia (Lista lst)
 {
-  return (lst == NULL);
+    if (lst == NULL) return 1;
+    else return 0;
 }
 
 // precisa do ponteiro pois modifica Head`s de outros locais
@@ -109,21 +110,18 @@ int apaga_lista (Lista *lst)
 // captura elem da pos passada (inverso doq o prof faz)
 int get_elem_pos (Lista lst, int pos, char *c)
 {
-  if (lista_vazia(lst) || pos <= 0)
+  if (lista_vazia(lst) || pos < 1)
     return -1;
 
-  int contador = 1;
   Lista aux = lst;
-
-  while (aux->prox != lst && contador < pos)
+  while (pos > 1)
   {
     aux = aux->prox;
-    contador++;
+    if (aux == lst) return -1;
+
+    pos--;
   }
 
-  if (contador != pos)
-    return -1; // posicao nao existe na lista
-  
   *c = aux->info; // retorno implicito do elem procurado
   return 1;
 }
@@ -137,16 +135,24 @@ int insere_inicio (Lista *lst, char elem)
   if (N == NULL) { return 0; }
   N->info = elem;
 
-  // CASO lista esteja vazia
+  // CASO lista esteja vazia, ele da em si mesmo
   if (lista_vazia(*lst))
   {
     *lst = N;
-    N->prox = (*lst)->prox;
+    N->prox = *lst;
     return 1;
   }
 
-  N->prox = (*lst)->prox;
-  (*lst)->prox = N; // N eh o `novo tail` 
+  N->prox = (*lst);
+  Lista antiga_cabeca = *lst;
+  (*lst)  = N; // N é a nova cabeca
+
+  // encontra o ultimo e associe na nova cabeça
+  Lista aux = N->prox;
+  while (aux->prox != antiga_cabeca) { // a cabeca aponta pra antiga cabeca
+    aux = aux->prox;
+  }
+  aux->prox = *lst; // associar o final ao novo inicio
 
   return 1;
 }

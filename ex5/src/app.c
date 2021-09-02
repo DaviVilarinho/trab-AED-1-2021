@@ -13,7 +13,7 @@ int main (void)
   fprintf(stdout,"\nclient para Lista_NaoOrdenada_Caracteres_Ciclica\n");
 
   // operacao para o switch
-  unsigned short int op = 0;
+  int op = 0;
   // caso usuario deseje colocar item
   char c;
   // caso queira colocar item em det posicao
@@ -23,7 +23,8 @@ int main (void)
   do
   {
     imprime_menu();
-    scanf("%hu", &op);
+    scanf("%i", &op);
+    setbuf(stdin, NULL);
     
     switch (op)
     {
@@ -133,7 +134,8 @@ char elem_inserir (void)
 {
   char c_inserir;
   fprintf(stdout, "inserir: ");
-  scanf(" %c", &c_inserir);
+  c_inserir = fgetc(stdin);
+  setbuf(stdin, NULL);
   return c_inserir;
 }
 
@@ -143,9 +145,13 @@ int posicao_entrar (char *c)
   char char_entrar;
   fprintf(stdout, "posicao: ");
   scanf("%d", &pos_entrar);
+  setbuf(stdin, NULL);
   fprintf(stdout, "\ncaractere: ");
-  scanf(" %c", &char_entrar);
+
+  char_entrar = fgetc(stdin);
+  setbuf(stdin, NULL);
   *c = char_entrar;
+
   return pos_entrar;
 }
 
@@ -157,14 +163,13 @@ void imprime_lista (Lista lst)
     return;
   }
 
-  int i;
+  int i = 1;
+  char c;
   fprintf(stdout, "\n[ ");
-  for(i = 1; ; i++)
+  while (get_elem_pos(lst, i, &c) != -1)
   {
-    char c;
-    if (get_elem_pos(lst, i, &c) == -1)
-      break;
     fprintf(stdout, "%c ", c);
+    i++;
   }
   fprintf(stdout, "]\n");
   fprintf(stdout,"\nexiste, %d elems na lista no momento\n", i-1);
