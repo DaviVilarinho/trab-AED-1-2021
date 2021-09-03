@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1630635292 source:c:\users\usuario\documents\laboratorio de aed\exercício01\main.c
+	<stdio.h>
+	"Lista.h"
+
+1630633739 c:\users\usuario\documents\laboratorio de aed\exercício01\lista.h
+
+1630635292 source:c:\users\usuario\documents\laboratorio de aed\exercício01\lista.c
+	<stdlib.h>
+	"Lista.h"
+
+1630642560 source:c:\users\usuario\documents\laboratorio de aed\ex1\lista.c
+	<stdlib.h>
+	"Lista.h"
+
+1630642560 c:\users\usuario\documents\laboratorio de aed\ex1\lista.h
+
