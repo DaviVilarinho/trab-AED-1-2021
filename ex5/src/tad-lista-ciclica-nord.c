@@ -291,47 +291,34 @@ int remove_vogais (Lista *lst)
   // vogais no meio
   while (aux->prox != *lst)
   {
-    // If current node is vowel
     if (eh_vogal(aux->info))
     {
      aux = aux->prox;
-     // Check for vowels
-     // occurring continuously
-     while (aux != *lst)
-     {
-       // If aux is a vowel
-       // move to next pointer
+     
+     // checando vogais continuas
+      while (aux != *lst)
+      {
+       // se aux vogal vamos pro proximo noh
        if (eh_vogal(aux->info))
-       {
-        aux = aux->prox;
-       }
-       // Else break if
-        // consonant found
-        else
-          break;
+         aux = aux->prox;
+       // caso achemos uma consoante
+       else
+         break;
       }
 
-      // Case 3: If we have ending
-      // vowels then link the prev
-      // consonant to NULL
+      // CASO vogais no fim
       if (aux == *lst)
       {
         anterior->prox = *lst;
         break;
       }
-
-      // Case 2: change the next
-      // link of prev to current
-      // consonant pointing to
-      // aux
       else
       {
         anterior->prox = aux;
       }
     }
 
-    // Move prev and aux to next
-    // for next iteration
+    // preparar pra proxima iteracao
     anterior = anterior->prox;
     aux = aux->prox;
   }
