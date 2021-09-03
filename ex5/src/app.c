@@ -37,24 +37,24 @@ int main (void)
         c = elem_inserir();
         if ( insere_final(&lista, c) )
         {
-          fprintf(stdout, "inserido com sucesso\n");
+          fprintf(stdout, "\ninserido com sucesso\n");
           break;
         }
         else
         {
-          fprintf(stdout, "erro ao inserir\n");
+          fprintf(stdout, "\nerro ao inserir\n");
           break;
         }
 
       case 3:
         if ( remove_ini(&lista) )
         {
-          fprintf(stdout, "removido com sucesso\n");
+          fprintf(stdout, "\nremovido com sucesso\n");
           break;
         }
         else
         {
-          fprintf(stdout, "falha ao remover");
+          fprintf(stdout, "\nfalha ao remover");
           break;
         }
 
@@ -62,19 +62,19 @@ int main (void)
         if (apaga_lista(&lista))
           fprintf(stdout, "\napagada com sucesso\ncrie outra lista\n");
         else
-          fprintf(stdout, "falha ao apagar\n");
+          fprintf(stdout, "\nfalha ao apagar\n");
         break;
 
       case 5:
         c = elem_inserir();
         if ( insere_inicio(&lista, c))
         {
-          fprintf(stdout, "inserido com sucesso\n");
+          fprintf(stdout, "\ninserido com sucesso\n");
           break;
         }
         else
         {
-          fprintf(stdout, "falha ao inserir\n");
+          fprintf(stdout, "\nfalha ao inserir\n");
           break;
         }
 
@@ -82,36 +82,36 @@ int main (void)
         i = posicao_entrar(&c);
         if (insere_pos(&lista,i,c))
         {
-          fprintf(stdout, "inserido com sucesso\n");
+          fprintf(stdout, "\ninserido com sucesso\n");
           break;
         }
         else
         {
-          fprintf(stdout, "falha ao inserir\n");
+          fprintf(stdout, "\nfalha ao inserir\n");
           break;
         }
 
       case 7:
         if ( remove_fim(&lista) )
         {
-          fprintf(stdout, "removido com sucesso\n");
+          fprintf(stdout, "\nremovido com sucesso\n");
           break;
         }
         else
         {
-          fprintf(stdout, "falha ao remover\n");
+          fprintf(stdout, "\nfalha ao remover\n");
           break;
         }
 
       case 8:
         if (remove_vogais(&lista))
         {
-          fprintf(stdout, "sucesso\n");
+          fprintf(stdout, "\nsucesso\n");
           break;
         }
         else
         {
-          fprintf(stdout, "falha\n");
+          fprintf(stdout, "\nfalha\n");
           break;
         }
 
