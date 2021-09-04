@@ -1,7 +1,8 @@
 #include "tad-lista-dinamica-ord.h"
 #include <stdlib.h>
 
-struct no{
+struct no
+{
     float info;
     Lista prox;
 };
@@ -13,11 +14,13 @@ Lista cria_lista()
 
 int lista_vazia(Lista lista)
 {
-    if (lista == NULL) return 1;
-    else               return 0;
+    if (lista == NULL)
+        return 1;
+    else
+        return 0;
 }
 
-// encapsulada
+// encapsulada (nao acessivel aos clients)
 Lista cria_no(float info) 
 {
     Lista novo_no;
@@ -29,88 +32,24 @@ Lista cria_no(float info)
     return novo_no;
 }
 
-void coloca_entre(Lista *o_colocado, Lista *antecessor, Lista *atual)
+// TODO colocar pra remover o ultimo
+int insere_elem(Lista *lista, float elem)
 {
-    (*o_colocado)->prox = *atual;
-    (*antecessor)->prox = (*o_colocado);
+    Lista N = cria_no(elem);
+
+    return 0; 
 }
 
-int insere_elem_ord(Lista *lista, float elem)
+// TODO colocar pra remover o primeiro
+int remove_elem(Lista *lista)
 {
-    Lista inserindo = cria_no(elem);
-
-    if (inserindo != NULL)
-    {
-        if (lista_vazia(*lista))
-        {
-            *lista = inserindo;             // lista vazia só apontar para o novo nó alocado
-            return 1;
-        }
-        else if ((*lista)->info >= elem)
-        {
-            inserindo->prox = *lista;       
-            *lista = inserindo;             // inserindo no início
-
-            return 1;
-        }
-
-        // casos não cobertos: no miolo
-        Lista retardatario = *lista;
-        Lista cursor = (*lista)->prox;
-
-        // se estiver no miolo
-        while (cursor != NULL)
-        {
-            if (cursor->info >= elem)
-            {
-                coloca_entre(&inserindo, &retardatario, &cursor);
-                return 1;
-            }
-            retardatario = cursor;
-            cursor = cursor->prox;
-        }
-
-        // se passou tudo, o cursor é nulo, basta inserir no proximo do retardatario
-        retardatario->prox = inserindo;
-        return 1;
-         
-    }
-    // falha na alocacao de memória
-    else
-        return 0; 
-}
-
-void remove_no(Lista *lista, Lista *retardatario, Lista *cursor)
-{
-    if ((*retardatario) != NULL)
-        (*retardatario)->prox = (*cursor)->prox; // excluir, se houver, antecessor
-
-    if (*cursor == *lista)  // se for a cabeça, tem que reatribui-la
-        *lista = (*cursor)->prox;            
-
-    free(*cursor);
-    *cursor = NULL;
-}
-
-int remove_elem_ord(Lista *lista, float elem)
-{
-    if (lista_vazia(*lista)) return 0; // lista vazia
+    if (lista_vazia(*lista))
+        return 0;
 
     Lista cursor = *lista;
     Lista retardatario = NULL;
 
-    // percorre até encontrar
-    while (cursor != NULL)
-    {
-        if (cursor->info == elem)
-        {
-            remove_no(lista, &retardatario, &cursor);
-            return 1;
-        }
-        retardatario = cursor;
-        cursor = cursor->prox;
-    }
-    return 0; // nao encontrado
+    return 0;
 }
 
 int remove_elem_pos(Lista *lista, int position)
@@ -156,8 +95,10 @@ float get_elem_pos(Lista lst, int pos, float *retorno_implicito)
         return 0;
 }
 
+// TODO implementar
 int get_menor(Lista lista, float *retorno_implicito);
 
+// TODO deixar mais simples
 int apaga_lista(Lista *lista)
 {
     if (lista_vazia(*lista))
@@ -165,7 +106,8 @@ int apaga_lista(Lista *lista)
     else
     {
         Lista resto = (*lista)->prox;
-        free(*lista); *lista = NULL; // esvaziar atual
+        free(*lista);
+        *lista = NULL; // esvaziar atual
         return 1 + esvazia_lista(&resto); // e o resto
     }
 }
