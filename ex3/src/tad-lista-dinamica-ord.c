@@ -122,10 +122,10 @@ int remove_elem_pos(Lista *lista, int position) {
     return 0;
 }
 
-float get_elem_pos(Lista lista, int pos, float *retorno_implicito) {
-    if (lista_vazia(lista)) {return 0;} // lista vazia nao tem elementos
+float get_elem_pos(Lista lst, int pos, float *retorno_implicito) {
+    if (lista_vazia(lst)) {return 0;} // lista vazia nao tem elementos
 
-    Lista cursor = lista;
+    Lista cursor = lst;
     while (pos > 1 && cursor != NULL) {
         cursor = cursor->prox;
         pos--;
