@@ -188,20 +188,30 @@ int iguais(Lista lst1, Lista lst2) {
     }
 }
 
-void insere_e_avance(Lista *lst, Lista inserir) {
-    inserir->prox = NULL;
+int inverte(Lista *lista) {                                                      
+    if (lista_vazia(*lista))                                                    
+        return 0;                                                               
+                                                                                
+    Lista invertida = NULL;                                                      
+                                                                                
+    Lista cursor    = *lista;                                                    
+    Lista save_prox;                                                             
+                                                                                
+    while (cursor != NULL) {                                                    
+        save_prox = cursor->prox;                                               
+        insere_elem(&invertida, cursor->info);
+        cursor = save_prox;                                                     
+    }                                                                           
+                                                                                
+    *lista = invertida;                                                         
+                                                                                
+    return 1;                                                                   
+}                                                                               
 
-    if (*lst == NULL)
-        *lst = inserir;
-    else {
-        (*lst)->prox = inserir;
-        (*lst) = (*lst)->prox;
-    }
-}
+
 
 Lista intercalar(Lista lst1, Lista lst2) {
     Lista nova_lista = cria_lista();
-//    Lista nova_lista_cursor = nova_lista;
 
     Lista cursor[2] = {lst1, lst2};
 
@@ -211,12 +221,13 @@ Lista intercalar(Lista lst1, Lista lst2) {
         {
             if (cursor[i] != NULL) 
             {
-                //insere_e_avance(&nova_lista_cursor, cria_no(cursor[i]->info));
                 insere_elem(&nova_lista, cursor[i]->info);
                 cursor[i] = cursor[i]->prox;
             }
         }
     }
+
+    inverte(&nova_lista);
 
     return nova_lista;
 }
