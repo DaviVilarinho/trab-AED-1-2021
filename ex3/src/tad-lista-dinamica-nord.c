@@ -187,5 +187,37 @@ int iguais(Lista lst1, Lista lst2) {
             return 0;                              // do contrário nao é
     }
 }
-// Lista intercalar(Lista lst1, Lista ls2);
+
+void insere_e_avance(Lista *lst, Lista inserir) {
+    inserir->prox = NULL;
+
+    if (*lst == NULL)
+        *lst = inserir;
+    else {
+        (*lst)->prox = inserir;
+        (*lst) = (*lst)->prox;
+    }
+}
+
+Lista intercalar(Lista lst1, Lista lst2) {
+    Lista nova_lista = cria_lista();
+//    Lista nova_lista_cursor = nova_lista;
+
+    Lista cursor[2] = {lst1, lst2};
+
+    while (cursor[0] != NULL || cursor[1] != NULL) 
+    {
+        for (int i = 0; i < 2; i++) 
+        {
+            if (cursor[i] != NULL) 
+            {
+                //insere_e_avance(&nova_lista_cursor, cria_no(cursor[i]->info));
+                insere_elem(&nova_lista, cursor[i]->info);
+                cursor[i] = cursor[i]->prox;
+            }
+        }
+    }
+
+    return nova_lista;
+}
 

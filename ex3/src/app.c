@@ -9,6 +9,7 @@ int main (void)
 {
   int lista_ativa = 0;
   Lista listas[2] = {cria_lista(), cria_lista()};
+  Lista lista_intercalada;
   int op = 0;
   int status = 1;
   TIPO_DE_DADO f = 0.0; // para insercao
@@ -94,6 +95,12 @@ int main (void)
       else
         printf("\nNAO sao iguais\n");
 
+      break;
+
+    case 8:
+      lista_intercalada = intercalar(listas[0], listas[1]);
+      printa_lista(lista_intercalada);
+      apaga_lista(&lista_intercalada);
       break;
 
     case 9:
