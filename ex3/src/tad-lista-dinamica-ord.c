@@ -12,12 +12,9 @@ Lista cria_lista()
     return NULL;
 }
 
-int lista_vazia(Lista lista)
+int lista_vazia(Lista lst)
 {
-    if (lista == NULL)
-        return 1;
-    else
-        return 0;
+    return (lst == NULL);
 }
 
 // encapsulada (nao acessivel aos clients)
@@ -32,52 +29,64 @@ Lista cria_no(float info)
     return novo_no;
 }
 
-// TODO colocar pra remover o ultimo
-int insere_elem(Lista *lista, float elem)
+
+int insere_elem(Lista *lst, float elem)
 {
+    // aloca e setta
     Lista N = cria_no(elem);
+    N->info = elem;
 
-    return 0; 
-}
-
-// TODO colocar pra remover o primeiro
-int remove_elem(Lista *lista)
-{
-    if (lista_vazia(*lista))
-        return 0;
-
-    Lista cursor = *lista;
-    Lista retardatario = NULL;
-
-    return 0;
-}
-
-int remove_elem_pos(Lista *lista, int position)
-{
-    if (lista_vazia(*lista)) return 0; // lista vazia nao tem elemento
-
-    Lista cursor = *lista;
-    Lista retardatario = NULL;
-
-    // encontrar o elemento a ser removido & seu antecessor
-    while (cursor != NULL && position > 1)
+    if (lista_vazia(*lst))
     {
-        retardatario = cursor;
-        cursor = cursor->prox;
-        position--;
+        *lst = N;
+        N->prox = NULL;
     }
 
-    if (position == 1 && cursor != NULL)
-    {
-        remove_no(lista, &retardatario, &cursor);
-        return 1;
-    }
-    return 0;
+    N->prox = *lst;
+    *lst = N;
+    
+    return 1; 
 }
 
-float get_elem_pos(Lista lst, int pos, float *retorno_implicito)
+// TODO colocar pra remover do primeiro
+// int remove_elem(Lista *lista)
+// {
+//     if (lista_vazia(*lista))
+//         return 0;
+
+//     Lista cursor = *lista;
+//     Lista retardatario = NULL;
+
+//     return 0;
+// }
+
+// int remove_elem_pos(Lista *lista, int position)
+// {
+//     if (lista_vazia(*lista)) return 0; // lista vazia nao tem elemento
+
+//     Lista cursor = *lista;
+//     Lista retardatario = NULL;
+
+//     // encontrar o elemento a ser removido & seu antecessor
+//     while (cursor != NULL && position > 1)
+//     {
+//         retardatario = cursor;
+//         cursor = cursor->prox;
+//         position--;
+//     }
+
+//     if (position == 1 && cursor != NULL)
+//     {
+//         remove_no(lista, &retardatario, &cursor);
+//         return 1;
+//     }
+//     return 0;
+// }
+
+int get_elem_pos(Lista lst, int pos, float *retorno_implicito)
 {
-    if (lista_vazia(lst)) {return 0;} // lista vazia nao tem elementos
+    if (lista_vazia(lst))
+        return 0; // lista vazia nao tem elementos
 
     Lista cursor = lst;
     while (pos > 1 && cursor != NULL)
@@ -96,18 +105,15 @@ float get_elem_pos(Lista lst, int pos, float *retorno_implicito)
 }
 
 // TODO implementar
-int get_menor(Lista lista, float *retorno_implicito);
+// int get_menor(Lista lista, float *retorno_implicito);
 
 // TODO deixar mais simples
-int apaga_lista(Lista *lista)
-{
-    if (lista_vazia(*lista))
-        return 0;
-    else
-    {
-        Lista resto = (*lista)->prox;
-        free(*lista);
-        *lista = NULL; // esvaziar atual
-        return 1 + esvazia_lista(&resto); // e o resto
-    }
-}
+// int apaga_lista(Lista *lista)
+// {
+//     if (lista_vazia(*lista))
+//         return 0;
+//     else
+//     {
+       
+//     }
+// }
