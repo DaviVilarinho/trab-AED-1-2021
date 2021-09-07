@@ -1,8 +1,8 @@
 # trab-AED-1-2021
 
-## 1) lista *estática/sequencial* **ordenada** decrescente de `int`s 
+## 1) lista *estática/sequencial* **ordenada** decrescente de `int`s
 
-## 2) lista *estática/sequencial* **não-ordenada** de `string`s 
+## 2) lista *estática/sequencial* **não-ordenada** de `string`s
 
 ## 3) lista *dinâmica/encadeada* **não-ordenada** de `float`s
 
