@@ -28,6 +28,8 @@ int apaga_lista (Lista *lst)
 {
     esvazia_lista (lst); //Esvazia a lista
     free (*lst); //Dá free no nó cabeçalho
+
+    return 1;
 }
 
 //Esvazia a lista, mas MANTÉM o nó cabeçalho

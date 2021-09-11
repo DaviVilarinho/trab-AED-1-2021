@@ -17,12 +17,11 @@ int main ()
         printf("\n[4] Esvaziar Lista");
         printf("\n[5] Inserir um elemento na Lista");
         printf("\n[6] Remover um elemento da Lista");
-        printf("\n[7] Pegar o elemento na posição desejada");
-        printf("\n[8] Remover o elemento da posição desejada");
-        printf("\n[9] Tamanho da lista");
-        printf("\n[10] Intercalar duas listas");
-        printf("\n[11] Inverter a lista");
-        printf("\n[12] Sair do programa");
+        printf("\n[7] Remover o elemento da posição desejada");
+        printf("\n[8] Tamanho da lista");
+        printf("\n[9] Intercalar duas listas");
+        printf("\n[10] Inverter a lista");
+        printf("\n[11] Sair do programa");
         printf("\nDigite a opção desejada: ");
 
         scanf("%d", &opcao);
@@ -86,16 +85,6 @@ int main ()
 
             case 7:
 
-                printf("\nDigite a posição da qual quer o elemento: ");
-                scanf("%d", &pos2);
-                pos2 = pos2 + 1;
-                get_elem_pos (&lista, pos2, &var);
-                printf("\nElemento: %d\n", var);
-                sleep (1);
-                break;
-
-            case 8:
-
                 printf("\nDigite a posição da qual remover o elemento: ");
                 scanf("%d", &pos3);
                 rem_elem_pos (&lista, pos3);
@@ -103,14 +92,14 @@ int main ()
                 sleep (1);
                 break;
 
-            case 9:
+            case 8:
 
                 tam = tamanho(&lista);
                 printf("\nTamanho: %d\n", tam);
                 sleep (1);
                 break;
 
-            case 10:
+            case 9:
 
                 lista2 = cria_lista();
                 lista_int = cria_lista();
@@ -140,7 +129,7 @@ int main ()
                 sleep (1);
                 break;
 
-            case 11:
+            case 10:
 
                 printf("\nLista Invertida: ");
                 tam2 = tamanho (&lista);
@@ -157,7 +146,7 @@ int main ()
                 sleep (1);
                 break;
 
-            case 12:
+            case 11:
 
                 return 0;
 
