@@ -1,3 +1,5 @@
+// TAD - lista dinâmica/encadeada não-ordenada de floats
+
 #include "tad-lista-dinamica-nord.h"
 #include <stdlib.h>
 
@@ -7,11 +9,13 @@ struct no
     Lista prox;
 };
 
+// op trivial
 Lista cria_lista()
 {
     return NULL;
 }
 
+// check de lista vazia
 int lista_vazia(Lista lst)
 {
     return (lst == NULL);
@@ -29,7 +33,7 @@ Lista cria_no(TIPO_DE_DADO info)
     return novo_no;
 }
 
-
+// insercao mais facil - no inicio sempre
 int insere_elem(Lista *lst, TIPO_DE_DADO elem)
 {
     // aloca e setta
@@ -43,6 +47,7 @@ int insere_elem(Lista *lst, TIPO_DE_DADO elem)
     return 1; 
 }
 
+// encapsulada - facilita a remocao de um no qualquer
 void remove_no(Lista *lista, Lista *retardatario, Lista *cursor) {
     if ((*retardatario) != NULL)
         (*retardatario)->prox = (*cursor)->prox; // excluir, se houver, antecessor
@@ -54,6 +59,7 @@ void remove_no(Lista *lista, Lista *retardatario, Lista *cursor) {
     *cursor = NULL;
 }
 
+// remove o elemento da pos passada como parametro
 int remove_elem_pos(Lista *lista, int position)
 {
     if (lista_vazia(*lista)) return 0; // lista vazia nao tem elemento
@@ -78,6 +84,7 @@ int remove_elem_pos(Lista *lista, int position)
     return 0;
 }
 
+// remove o elemento passado como parametro
 int remove_elem(Lista *lista, TIPO_DE_DADO dado) {
     if (lista_vazia(*lista)) return 0; // lista vazia nao tem elemento
 
@@ -100,6 +107,7 @@ int remove_elem(Lista *lista, TIPO_DE_DADO dado) {
     return 0;
 }
 
+// retorna implicitamente o elemento da posicao passada como parametro
 int get_elem_pos(Lista lst, int pos, TIPO_DE_DADO *retorno_implicito)
 {
     if (lista_vazia(lst))
@@ -124,6 +132,7 @@ int get_elem_pos(Lista lst, int pos, TIPO_DE_DADO *retorno_implicito)
         return 0;
 }
 
+// remove o menor elemento
 TIPO_DE_DADO remove_menor(Lista *lst, int *status) {
     if (lista_vazia(*lst)) {*status = 0; return 0;} // lista vazia nao retorna nada mesmo
 
@@ -143,7 +152,6 @@ TIPO_DE_DADO remove_menor(Lista *lst, int *status) {
         cursor = cursor->prox;
     }
 
-
     TIPO_DE_DADO menor_dado = menor->info;
 
     retardatario_menor->prox = menor->prox; // mudar, no pior dos casos é ele mesmo, que vai ser removido
@@ -156,6 +164,7 @@ TIPO_DE_DADO remove_menor(Lista *lst, int *status) {
     return menor_dado;
 }
 
+// apaga a lista da memoria
 int apaga_lista(Lista *lst)
 {
     if (lista_vazia(*lst))
@@ -174,6 +183,7 @@ int apaga_lista(Lista *lst)
     }
 }
 
+// check se duas listas sao iguais
 int iguais(Lista lst1, Lista lst2) {
     if (lst1 == NULL || lst2 == NULL) { // se algum estiver vazio
         if (lst1 == lst2)               // se ambas estiverem eh vdd
@@ -188,6 +198,7 @@ int iguais(Lista lst1, Lista lst2) {
     }
 }
 
+// inverte uma lista
 int inverte(Lista *lista) {                                                      
     if (lista_vazia(*lista))                                                    
         return 0;                                                               
@@ -208,8 +219,7 @@ int inverte(Lista *lista) {
     return 1;                                                                   
 }                                                                               
 
-
-
+// intercala duas listas
 Lista intercalar(Lista lst1, Lista lst2) {
     Lista nova_lista = cria_lista();
 
@@ -231,4 +241,3 @@ Lista intercalar(Lista lst1, Lista lst2) {
 
     return nova_lista;
 }
-

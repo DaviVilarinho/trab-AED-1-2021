@@ -1,5 +1,7 @@
 #define TIPO_DE_DADO float
+
 struct no;
+
 typedef struct no *Lista;
 
 Lista cria_lista();
