@@ -5,12 +5,12 @@ void imprime_Lista(Lista);
 
 int main()
 {
-    int op,op1,FLAG = 0; // FLAG contabiliza a qtde de reinicializações da lista
+    int op,op1,FLAG = 0; // FLAG contabiliza a qtde de reinicializaï¿½ï¿½es da lista
     Lista L, L1, L2;
 
     do{
         do{
-            //Obtem opção do usuário
+            // obtem opcao do usuario
             printf("===========================================\n");
             printf("[1]  Criar uma Lista\n");
             printf("[2]  Esvaziar a Lista\n");
@@ -29,20 +29,19 @@ int main()
             scanf("%d",&op);
             setbuf(stdin, NULL);
             if(op < 1 || op > 12 )
-                printf("\n***Opçao digitada nao eh valida! ***\nAs opçoes disponiveis sao:\n");
+                printf("\n***Opcao digitada nao eh valida! ***\nAs opcoes disponiveis sao:\n");
         }while(op < 1 || op > 12 );
 
         if(op == 12)
             break;
         else if(op != 1 && FLAG == 0) {
-            printf("\nAntes de qualquer operaçao, a lista precisa ser criada.\n\n");
+            printf("\nAntes de qualquer operacao, a lista precisa ser criada.\n\n");
             continue;
         }
 
         switch (op) {
-
         case 1:  {
-            if(FLAG){ //Verifica se a lista ja existe
+            if(FLAG){ // verifica se a lista ja existe
                 libera_lista(&L);
                 libera_lista(&L1);
                 libera_lista(&L2);
@@ -52,23 +51,23 @@ int main()
                 }
             }
 
-             L = cria_lista();
-             L1 = cria_lista();
-             L2 = cria_lista();
-             if(L == NULL) {
-                printf("\nFalha na alocaçao...\n\n");
-                return -1;
-             }
+            L = cria_lista();
+            L1 = cria_lista();
+            L2 = cria_lista();
 
-             if(FLAG)
+            if(L == NULL) {
+                printf("\nFalha na alocaï¿½ao...\n\n");
+                return -1;
+            }
+
+            if(FLAG)
                 printf("\nA lista foi reinicializada pela %d vez com sucesso!\n\n",FLAG);
-             else
+            else
                 printf("\nA lista foi criada com sucesso!\n\n");
 
             FLAG++;
 
             break;
-
         }
         case 2: {
             printf("\nQual lista voce quer esvaziar 1 ou 2: ");
@@ -237,26 +236,25 @@ int main()
             break;
         }
         case 10: {
-         intercala_listaORD(L,L1,&L2);
-         imprime_Lista(L2);
-         break;
-
+            intercala_listaORD(L,L1,&L2);
+            imprime_Lista(L2);
+            break;
         }
         case 11: {
-         intercala_lista(L,L1,&L2);
-         imprime_Lista(L2);
-         break;
-
+            intercala_lista(L,L1,&L2);
+            imprime_Lista(L2);
+            break;
         }
       }
-
-    }while (op != 12);
+    } while (op != 12);
 
     printf("\nAdeus\n");
     return 0;
 }
 
+// impressao da lista no terminal
 void imprime_Lista(Lista L) {
+
     if(lista_vazia(L) == 1) {
         printf("\n***LISTA VAZIA***\n\n");
         return;

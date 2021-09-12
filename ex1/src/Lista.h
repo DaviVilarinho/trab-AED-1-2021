@@ -1,6 +1,7 @@
 #ifndef LISTA_H_INCLUDED
 #define LISTA_H_INCLUDED
 
+// tamanaho maximo para a lista
 #define MAX 20
 
 typedef struct lista * Lista;
