@@ -21,17 +21,18 @@ int main()
             printf("[7]  Remover todos os elementos negativos da Lista\n");
             printf("[8]  Remover todos os elementos pares da Lista\n");
             printf("[9]  Imprimir o tamanho da Lista\n");
-            printf("[10] Intercala duas Listas\n");
-            printf("[11] Sair do sistema\n");
-            printf("\nDigite a opçao desejada: ");
+            printf("[10] Intercala duas Listas decrescente\n");
+            printf("[11] Intercala duas Listas\n");
+            printf("[12] Sair do sistema\n");
+            printf("\nDigite a opcao desejada: ");
 
             scanf("%d",&op);
             setbuf(stdin, NULL);
-            if(op < 1 || op > 11 )
+            if(op < 1 || op > 12 )
                 printf("\n***Opçao digitada nao eh valida! ***\nAs opçoes disponiveis sao:\n");
-        }while(op < 1 || op > 11 );
+        }while(op < 1 || op > 12 );
 
-        if(op == 11)
+        if(op == 12)
             break;
         else if(op != 1 && FLAG == 0) {
             printf("\nAntes de qualquer operaçao, a lista precisa ser criada.\n\n");
@@ -146,24 +147,26 @@ int main()
 
             printf("\nDigite o elemento a ser removido da lista: ");
             scanf("%d",&N);
-            if(op1 == 1)
-            if(remove_ord(L,N) == 0) {
-                if(lista_vazia(L) == 1)
+            if(op1 == 1){
+            if(remove_ord(L,N) == 0){
+                if(lista_vazia(L) == 1){
                     printf("\nA lista esta vazia!\n\n");
-                else
-                    printf("\nNao existe o elemento %d na lista;\n\n",N) ;
+                }else{
+                    printf("\nNao existe o elemento %d na lista\n\n",N);
+                }
             }
-            else
-                printf("\nO elemento %d foi removido com sucesso!\n\n",N);
-            else{
+                else{
+                    printf("\nO elemento %d foi removido com sucesso!\n\n",N);
+                }
+            }else{
                  if(remove_ord(L1,N) == 0) {
-                if(lista_vazia(L1) == 1)
-                    printf("\nA lista esta vazia!\n\n");
+                    if(lista_vazia(L1) == 1)
+                        printf("\nA lista esta vazia!\n\n");
+                    else
+                        printf("\nNao existe o elemento %d na lista;\n\n",N) ;
+                }
                 else
-                    printf("\nNao existe o elemento %d na lista;\n\n",N) ;
-            }
-            else
-                printf("\nO elemento %d foi removido com sucesso!\n\n",N);
+                    printf("\nO elemento %d foi removido com sucesso!\n\n",N);
             }
 
             break;
@@ -234,6 +237,12 @@ int main()
             break;
         }
         case 10: {
+         intercala_listaORD(L,L1,&L2);
+         imprime_Lista(L2);
+         break;
+
+        }
+        case 11: {
          intercala_lista(L,L1,&L2);
          imprime_Lista(L2);
          break;
@@ -241,7 +250,7 @@ int main()
         }
       }
 
-    }while (op != 11);
+    }while (op != 12);
 
     printf("\nAdeus\n");
     return 0;
@@ -264,6 +273,3 @@ void imprime_Lista(Lista L) {
     }
     printf("}\n\nExistem %d elementos na lista.\n\n", i-1);
 }
-
-
-
