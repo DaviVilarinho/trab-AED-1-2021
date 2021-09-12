@@ -6,57 +6,12 @@
 #define STDLIB_INCLUIDA 1
 #endif
 
-void print(no_p lista) {
-    int ok = 1;
-    int pos = 1;
-
-    while (ok) {
-        INFO_ARMAZENADA printar_agora = get_elem_pos(lista, pos, &ok);
-        if (ok)
-            printf("%lf ", printar_agora);
-        pos++;
-    }
-
-    printf("\n");
-}
-
-void print_menu() {
-    printf("\n= = = MENU = = =\n");
-    printf("\t[1] Novo Double\n");
-    printf("\t[2] Remove Double\n");
-    printf("\t[3] Printa Lista\n");
-    printf("\t[4] Esvaziar Lista\n");
-    printf("\t[5] Remove Double todos\n");
-    printf("\t[6] Remove maior(es)\n");
-    printf("\t[7] Inverte Lista\n");
-    printf("\t[8] Inserir na posicao\n");
-    printf("\t[0] Sair\n");
-    printf("ESCOLHA: ");
-}
-
-INFO_ARMAZENADA recebe_elemento() {
-    INFO_ARMAZENADA receber = 0;
-    printf("Para inserir: ");
-    scanf("%lf", &receber);
-
-    return receber;
-}
-
-INFO_ARMAZENADA receber_a_remover() {
-    INFO_ARMAZENADA a_remover = 0;
-    printf("Para remover: ");
-    scanf("%lf", &a_remover);
-
-    return a_remover;
-}
-
-int receber_indice() {
-    int a_remover = 0;
-    printf("Indice para inserir: ");
-    scanf("%i", &a_remover);
-
-    return a_remover;
-}
+// funcoes intermediarias
+void print(no_p lista);
+void print_menu();
+INFO_ARMAZENADA recebe_elemento();
+INFO_ARMAZENADA receber_a_remover();
+int receber_indice();
 
 int main (void) {
     int escolha = 1;
@@ -126,3 +81,59 @@ int main (void) {
     return 0;
 }
 
+// imprime a lista
+void print(no_p lista) {
+    int ok = 1;
+    int pos = 1;
+
+    while (ok) {
+        INFO_ARMAZENADA printar_agora = get_elem_pos(lista, pos, &ok);
+        if (ok)
+            printf("%lf ", printar_agora);
+        pos++;
+    }
+
+    printf("\n");
+}
+
+// imprime o menu
+void print_menu() {
+    printf("\n= = = MENU = = =\n");
+    printf("\t[1] Novo Double\n");
+    printf("\t[2] Remove Double\n");
+    printf("\t[3] Printa Lista\n");
+    printf("\t[4] Esvaziar Lista\n");
+    printf("\t[5] Remove Double todos\n");
+    printf("\t[6] Remove maior(es)\n");
+    printf("\t[7] Inverte Lista\n");
+    printf("\t[8] Inserir na posicao\n");
+    printf("\t[0] Sair\n");
+    printf("ESCOLHA: ");
+}
+
+// intermediaria - elemento a ser inserido
+INFO_ARMAZENADA recebe_elemento() {
+    INFO_ARMAZENADA receber = 0;
+    printf("Para inserir: ");
+    scanf("%lf", &receber);
+
+    return receber;
+}
+
+// intermediaria - elemento a ser removido
+INFO_ARMAZENADA receber_a_remover() {
+    INFO_ARMAZENADA a_remover = 0;
+    printf("Para remover: ");
+    scanf("%lf", &a_remover);
+
+    return a_remover;
+}
+
+// intermediaria - indice a ser inserido
+int receber_indice() {
+    int a_remover = 0;
+    printf("Indice para inserir: ");
+    scanf("%i", &a_remover);
+
+    return a_remover;
+}

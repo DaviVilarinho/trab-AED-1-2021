@@ -1,3 +1,5 @@
+// TAD - lista dinâmica/encadeada duplamente-encadeada e não-ordenada de doubles
+
 #ifndef STDLIB_INCLUIDA
 #define STDLIB_INCLUIDA 1
 #include <stdlib.h>
@@ -15,7 +17,7 @@ no_p cria_lista() {
     return NULL;
 }
 
-// novo elemento, fora do tad porque encapsulada
+// encapsulada - aloca um novo elemento
 no_p novo_elemento(INFO_ARMAZENADA info) {
     no_p criando = (no_p) malloc(sizeof(struct no));
 
@@ -28,6 +30,7 @@ no_p novo_elemento(INFO_ARMAZENADA info) {
     return criando;
 }
 
+// check de lista vazia
 int lista_vazia(no_p lista) {
     if (lista == NULL)
         return 1;
@@ -35,6 +38,7 @@ int lista_vazia(no_p lista) {
         return 0;
 }
 
+// insercao mais simples - no inicio
 int insere(no_p *lista, INFO_ARMAZENADA inserir) {
     no_p inserindo = novo_elemento(inserir);
     if (inserindo == NULL) return 0; // evitar erro de memoria
@@ -50,21 +54,21 @@ int insere(no_p *lista, INFO_ARMAZENADA inserir) {
     }
 }
 
+// remocao do elemento passado como parametro
 int remove_nord(no_p *lista, INFO_ARMAZENADA remove) {
     if (lista_vazia(*lista)) return 0;
-
 
     no_p cursor = *lista;
     while (cursor != NULL) {
         if (cursor->info == remove) {
-            // caso onde o cursor a remover eh a cabeca da lista 
+            // CASO cursor a remover eh a cabeca da lista 
             if (cursor == *lista) {
                 free(cursor);
                 cursor = NULL;
                 return 1;
             }
 
-            // caso onde o cursor a remover eh depois da cabeca
+            // CASO cursor a remover eh depois da cabeca
             if (cursor->ant)
                 cursor->ant->prox = cursor->prox;
             if (cursor->prox)
@@ -80,6 +84,7 @@ int remove_nord(no_p *lista, INFO_ARMAZENADA remove) {
     return 0;
 }
 
+// retorna o elemento que esta na posicao passada como parametro
 INFO_ARMAZENADA get_elem_pos(no_p lista, int pos, int *flag) {
     if (pos < 1) { // posicao invalida
         *flag = 0;     
@@ -107,6 +112,7 @@ INFO_ARMAZENADA get_elem_pos(no_p lista, int pos, int *flag) {
     }
 }
 
+// tira a lista da memoria
 int esvazia_lista(no_p *lista) {
     if (lista_vazia(*lista)) { // lista vazia nao ha nada pra fazer
         return 1;
@@ -122,6 +128,7 @@ int esvazia_lista(no_p *lista) {
     }
 }
 
+// impl dinamica nao ha diferenca entre apaga e esvazia
 int apaga_lista(no_p *lista) {
     return esvazia_lista(lista);
 }
@@ -142,6 +149,7 @@ int remove_no(no_p *no) {
     return 1;
 }
 
+// remove todos elementos da lista passada
 int remove_todos(no_p *lista, INFO_ARMAZENADA remover_ocorrencias) {
     int cont = 0;
 
@@ -170,6 +178,7 @@ int remove_todos(no_p *lista, INFO_ARMAZENADA remover_ocorrencias) {
     return cont;
 }
 
+// remove o maior elemento da lista
 int remove_maior(no_p *lista) {
     if (lista_vazia(*lista)) return 0; // nao ha como verificar em listas vazias
 
@@ -186,6 +195,7 @@ int remove_maior(no_p *lista) {
     return remove_todos(lista, maior->info);
 }
 
+// insere o elemento passado na posicao desejada
 int insere_pos(no_p *lista, int pos, INFO_ARMAZENADA info) {
     if (pos < 1 || lista_vazia(*lista)) return 0; // lista vazia ou posicao invalida nao insere
 
@@ -211,9 +221,9 @@ int insere_pos(no_p *lista, int pos, INFO_ARMAZENADA info) {
     cursor->ant = inserindo;
 
     return 1;
-
 }
 
+// inverte a lista passada como parametro
 int inverte(no_p *lista) {
     if (lista_vazia(*lista)) return 0; // lista vazia nao faz nada
 

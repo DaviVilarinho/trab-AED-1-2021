@@ -19,4 +19,3 @@ int remove_todos(no_p *lista, INFO_ARMAZENADA remover_ocorrencias);
 int remove_maior(no_p *lista);
 int inverte(no_p *lista);
 int insere_pos(no_p *lista, int pos, INFO_ARMAZENADA inserir);
-
