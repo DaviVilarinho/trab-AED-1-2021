@@ -11,6 +11,7 @@
 #define STDLIB_INCLUIDA 1
 #endif
 
+// imprime as strings armazenadas na lista atual
 void print(lista_p lista) {
     int ok = 1;
     printf("\nStrings:\n");
@@ -25,6 +26,7 @@ void print(lista_p lista) {
     printf("\n\n");
 }
 
+// mostra o menu
 void print_menu(int indice) {
     printf("\n= = = = =MENU = = = = =\n");
     printf("\n= Estamos na lista %i =\n", indice);
@@ -41,6 +43,7 @@ void print_menu(int indice) {
     printf("ESCOLHA: ");
 }
 
+// func intermediaria, recebe o elemento a ser inserido
 INFO_ARMAZENADA_ARGUMENTO recebe_elemento() {
     INFO_ARMAZENADA_ARGUMENTO receber = (INFO_ARMAZENADA_ARGUMENTO) malloc(MAX_ARMAZENADO * sizeof(INFO_ARMAZENADA));
 
@@ -51,6 +54,7 @@ INFO_ARMAZENADA_ARGUMENTO recebe_elemento() {
     return receber;
 }
 
+// func intermediaria, recebe o elemento a ser removido
 INFO_ARMAZENADA_ARGUMENTO receber_a_remover() {
     INFO_ARMAZENADA_ARGUMENTO a_remover = (INFO_ARMAZENADA_ARGUMENTO) malloc(MAX_ARMAZENADO * sizeof(INFO_ARMAZENADA));
     printf("Para remover: ");
@@ -143,6 +147,5 @@ int main (void) {
                 escolha = 0;
         }
     }
-
     return 0;
 }

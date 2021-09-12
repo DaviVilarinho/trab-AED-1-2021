@@ -1,3 +1,5 @@
+// TAD - lista estática/sequencial não-ordenada de strings
+
 #include "tad-estatica-nord.h"
 #ifndef STDLIB_INCLUIDA
 #define STDLIB_INCLUIDA 1
@@ -13,6 +15,7 @@ struct lista_estatica {
     INFO_ARMAZENADA vetor[MAX][MAX_ARMAZENADO];
 };
 
+// op trivial, aloca memoria para estrutura de lista
 lista_p cria_lista() {
     lista_p nova_lista = (lista_p) malloc(sizeof(struct lista_estatica));
 
@@ -23,12 +26,14 @@ lista_p cria_lista() {
     return nova_lista;
 }
 
+// esvazia porem mantendo a memoria alocada
 int esvazia_lista(lista_p lista) {
     lista->tamanho = 0;
 
     return 1;
 }
 
+// apaga a lista da memoria, desalocando-a
 int apaga_lista(lista_p *lista) {
     esvazia_lista(*lista);
     free(*lista);
@@ -37,6 +42,7 @@ int apaga_lista(lista_p *lista) {
     return 1;
 }
 
+// checa se lista vazia
 int lista_vazia(lista_p lista) {
     if (lista->tamanho == 0)
         return 1;
@@ -44,6 +50,7 @@ int lista_vazia(lista_p lista) {
         return 0;
 }
 
+// checa se lista cheia
 int lista_cheia(lista_p lista) {
     if (lista->tamanho == MAX)
         return 1;
@@ -51,10 +58,12 @@ int lista_cheia(lista_p lista) {
         return 0;
 }
 
+// retorna o tamanho da lista
 int tamanho(lista_p lista) {
     return lista->tamanho;
 }
 
+// insere o elemento
 int insere_elem(lista_p lista, INFO_ARMAZENADA_ARGUMENTO inserir) {
     if (!lista_cheia(lista)) {
         strcpy(lista->vetor[tamanho(lista)], inserir);
@@ -77,6 +86,7 @@ void shift_esquerda(lista_p lista, int pos) {
     }
 }
 
+// remove o elemento passado como parametro
 int remove_elem(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover) {
     if (!lista_vazia(lista)) {
         for (int i = 0; i < MAX; i++) {
@@ -93,6 +103,7 @@ int remove_elem(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover) {
     }
 }
 
+// retorna a string pedida
 INFO_ARMAZENADA_ARGUMENTO get_elem_pos(lista_p lista, int pos, int *ok) {
     if (pos > tamanho(lista) || pos < 1) {
         // pegar posicoes invalidas nao pode
@@ -105,6 +116,7 @@ INFO_ARMAZENADA_ARGUMENTO get_elem_pos(lista_p lista, int pos, int *ok) {
     }
 }
 
+// remove todas strings
 int remove_todas(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover) {
     if (!lista_vazia(lista)) {
         int i = 0;
@@ -124,6 +136,7 @@ int remove_todas(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover) {
     }
 }
 
+// remove a maior string da lista
 int remove_maior(lista_p lista) {
     if (!lista_vazia(lista)) {
         int indice_maior = 0; 
@@ -140,6 +153,7 @@ int remove_maior(lista_p lista) {
     }
 }
 
+// concatena duas listas
 int concat_listas(lista_p lista1, lista_p lista2) {
     int inseriu = 0;
     for (int i = 0; i < lista2->tamanho; i++) {

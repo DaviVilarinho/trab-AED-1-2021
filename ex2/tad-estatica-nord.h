@@ -3,6 +3,8 @@
 #define INFO_ARMAZENADA char
 #define INFO_ARMAZENADA_ARGUMENTO char*
 #endif
+
+// tamanho maximo das strings
 #define MAX 10
 
 struct lista_estatica;
