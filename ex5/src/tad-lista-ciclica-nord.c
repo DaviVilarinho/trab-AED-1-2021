@@ -1,3 +1,5 @@
+// TAD - lista dinâmica/encadeada cíclica de chars
+
 #include "tad-lista-ciclica-nord.h"
 #include <stdlib.h>
 #include <ctype.h> // para comparar vogal
@@ -7,15 +9,17 @@ struct no {
   struct no *prox;
 };
 
+// op trivial
 Lista cria_lista (void)
 {
   return NULL;
 }
 
+// check de lista vazia
 int lista_vazia (Lista lst)
 {
-    if (lst == NULL) return 1;
-    else return 0;
+  if (lst == NULL) return 1;
+  else return 0;
 }
 
 // precisa do ponteiro pois modifica Head`s de outros locais
@@ -135,8 +139,7 @@ int get_elem_pos (Lista lst, int pos, char *c)
   return 1;
 }
 
-// TODO: remove_fim, remove_vogais
-
+// insere no inicio da lista
 int insere_inicio (Lista *lst, char elem)
 {
   // aloca e preenche
@@ -166,6 +169,7 @@ int insere_inicio (Lista *lst, char elem)
   return 1;
 }
 
+// insere na posicao passada como argumento
 int insere_pos (Lista *lst, int pos, char elem)
 {
   // aloca e preenche
@@ -216,6 +220,7 @@ int insere_pos (Lista *lst, int pos, char elem)
   return 1;
 }
 
+// remove do fim
 int remove_fim(Lista *lst) 
 {
   // CASO lista vazia OU nula
@@ -259,6 +264,7 @@ int eh_vogal (char c)
     return 0;
 }
 
+// remove todas as vogais da lista atual
 int remove_vogais (Lista *lst)
 {
   if (lista_vazia(*lst))
@@ -324,7 +330,6 @@ int remove_vogais (Lista *lst)
   }
 
   return 1;
-
 }
 
 

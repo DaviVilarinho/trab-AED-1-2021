@@ -1,8 +1,7 @@
-
-
 #include <stdio.h>
 #include "tad-lista-ciclica-nord.h"
 
+// funcs intermediarias
 void imprime_menu (void);
 char elem_inserir (void);
 int posicao_entrar (char *);
