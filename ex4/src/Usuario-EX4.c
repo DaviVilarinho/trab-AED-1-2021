@@ -132,6 +132,22 @@ int main ()
             case 10:
 
                 printf("\nLista Invertida: ");
+                
+                // SEGFAULTA
+                // inverte(&lista);
+
+                // pos = 0;
+
+                // while(get_elem_pos (&lista, pos, &var))
+                // {
+                //     printf("%d ", var);
+                //     pos++;
+                // }
+
+                // printf("\n");
+
+                // inverte(&lista);
+
                 tam2 = tamanho (&lista);
                 cont = tam2 - 1;
 

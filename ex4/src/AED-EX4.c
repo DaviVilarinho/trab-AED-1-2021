@@ -1,29 +1,37 @@
+// TAD - lista dinâmica/encadeada ordenada crescente de ints
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "AED-EX4.h"
 
-//Cria uma lista
+//cria uma lista
 Lista cria_lista ()
 {
-    Lista cabecalho; //Aloca nó cabeçalho
+    Lista cabecalho; // aloca nó cabeçalho
     cabecalho = (Lista) malloc(sizeof(struct no));
 
-    if (cabecalho != NULL) //Só se alocação não falhar
+    if (cabecalho != NULL) // apenas se alocação não falhar
     {
         cabecalho -> prox = NULL;
         cabecalho -> info = 0; //Guarda quantidade
     }
 
-    return cabecalho; //Se alocação falhar, retorna NULL
+    return cabecalho; // se alocação falhar, retorna NULL
 }
 
-//Pega o tamanho da lista
+// check de lista vazia
+int lista_vazia(Lista lst)
+{
+    return (lst == NULL);
+}
+
+// pega o tamanho da lista
 int tamanho (Lista *lst)
 {
     return (*lst) -> info;
 }
 
-//Apaga a lista, INCLUSIVE o nó cabeçalho
+// apaga a lista, INCLUSIVE o nó cabeçalho
 int apaga_lista (Lista *lst)
 {
     esvazia_lista (lst); //Esvazia a lista
@@ -32,7 +40,7 @@ int apaga_lista (Lista *lst)
     return 1;
 }
 
-//Esvazia a lista, mas MANTÉM o nó cabeçalho
+// esvazia a lista, mas MANTÉM o nó cabeçalho
 int esvazia_lista (Lista *lst)
 {
     if (lst == NULL) //Se já tiver vazia, retorna 1
@@ -52,7 +60,7 @@ int esvazia_lista (Lista *lst)
     return 1;
 }
 
-//Pega o elemento na posição desejada
+// pega o elemento na posição desejada
 int get_elem_pos (Lista *lst, int pos, int *var)
 {
     /* Se a posição for maior que a quantia de nós OU se posição desejada for menor que 0
@@ -73,7 +81,7 @@ int get_elem_pos (Lista *lst, int pos, int *var)
     return 1;
 }
 
-//Remove o elemento na posição desejada
+// remove o elemento na posição desejada
 int rem_elem_pos (Lista *lst, int pos)
 {
     if ((*lst) -> info < pos || pos < 0 || (*lst) -> info == 0)
@@ -93,7 +101,7 @@ int rem_elem_pos (Lista *lst, int pos)
     return 1;
 }
 
-//Insere um elemento na lista de forma ordenada
+// insere um elemento na lista de forma ordenada
 int insere_ord (Lista *lst, int elem)
 {
     Lista N = (Lista) malloc(sizeof(struct no));
@@ -117,7 +125,7 @@ int insere_ord (Lista *lst, int elem)
     return 1;
 }
 
-//Remove um nó
+// remove um nó
 int remove_ord (Lista *lst, int elem)
 {
     if (lst == NULL)
@@ -141,7 +149,7 @@ int remove_ord (Lista *lst, int elem)
     return 1;
 }
 
-//Intercala duas listas (lst1 e lst2) e forma o resultado lst3
+// intercala duas listas (lst1 e lst2) e forma o resultado lst3
 int intercalar (Lista *lst1, Lista *lst2, Lista *lst3)
 {
     //Se alguma das duas listas estiver vazia, retorna 0
@@ -169,4 +177,25 @@ int intercalar (Lista *lst1, Lista *lst2, Lista *lst3)
     }
   
     return 1;
+}
+
+// inverte a lista passada
+int inverte(Lista *lista) {                                                      
+    if (lista_vazia(*lista))                                                    
+        return 0;                                                               
+                                                                                
+    Lista invertida = NULL;                                                      
+                                                                                
+    Lista cursor    = *lista;                                                    
+    Lista save_prox;                                                             
+                                                                                
+    while (cursor != NULL) {                                                    
+        save_prox = cursor->prox;                                               
+        insere_ord(&invertida, cursor->info);
+        cursor = save_prox;                                                     
+    }                                                                           
+                                                                                
+    *lista = invertida;                                                         
+                                                                                
+    return 1;                                                                   
 }
