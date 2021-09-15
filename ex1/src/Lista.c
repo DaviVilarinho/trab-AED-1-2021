@@ -5,7 +5,7 @@
 
 struct lista {
     int no[MAX];
-    int Fim;
+    int Fim; // "aponta" pro primeiro livre
 };
 
 // operacao mais basica - apenas aloca a estrutura Lista
@@ -33,12 +33,12 @@ int insere_ord(Lista lst, int elem) {
     if(lst == NULL || lista_cheia(lst) == 1)
         return 0;
 
-    if(lista_vazia(lst) == 1 || elem <= lst->no[lst->Fim-1]) {
+    if(lista_vazia(lst) == 1 || elem <= lst->no[lst->Fim-1]) { // vazia ou insercao no ultimo (sem deslocamento)
         lst->no[lst->Fim] = elem;
     }
-    else {
+    else { // insercao no meio
         int i;
-        // deslocamento a direita para abrir espaco para o novo elemento
+        // deslocamento a direita (for-loop decresce) para abrir espaco para o novo elemento
         for(i = lst->Fim; (i > 0 && lst->no[i-1] < elem); i--)
             lst->no[i] = lst->no[i-1];
 
@@ -53,24 +53,26 @@ int insere_fim(Lista lst, int elem) {
      if(lst == NULL || lista_cheia(lst) == 1)
         return 0;
 
+    // vazia (insercao simples) ou ultimo (sem deslocamento)
     if(lista_vazia(lst) == 1 || elem <= lst->no[lst->Fim-1]) {
         lst->no[lst->Fim] = elem;
     }
     else {
         lst->no[lst->Fim] = elem;
     }
-    lst->Fim++;  // avanca o Fim
-    return 1;    // sucesso
+
+    lst->Fim++;  // avanca o Fim para ambos casos
+    return 1;    // SUCESSO
 }
 
 // remove o elemento passado como argumento da lista
 int remove_ord(Lista lst, int elem) {
-    if(lst == NULL || lista_vazia(lst) == 1 || elem > lst->no[0] || elem < lst->no[lst->Fim-1])
+    if(lst == NULL || lista_vazia(lst) == 1 || elem > lst->no[0] || elem < lst->no[lst->Fim-1]) // sem lista, vazia, maior que 1o ou menor que ultimo
         return 0; // FALHA
 
     int i, Aux = 0;
 
-    // percorrimento ate achar o elem ou final da lista
+    // percorrimento ate achar o elemento
     while(Aux < lst->Fim && lst->no[Aux] > elem)
         Aux++;
 
@@ -79,9 +81,9 @@ int remove_ord(Lista lst, int elem) {
 
     // deslocamento a esquerda do sucessor ate o final da lista
     for(i = Aux+1;i < lst->Fim; i++)
-        lst->no[i-1] = lst->no[i];
+        lst->no[i-1] = lst->no[i]; // for-loop crescente, desloca esqerda
 
-    lst->Fim--; // decremento do tempo Fim
+    lst->Fim--; // decremento do Fim
     return 1;  // sucesso
 
 }
@@ -103,7 +105,7 @@ int esvazia_lista(Lista lst) {
 
 // remove os numeros negativos presentes na lista
 int remove_negativos(Lista lst) {
-if(lst == NULL || lista_vazia(lst) == 1)
+    if(lst == NULL || lista_vazia(lst) == 1)
         return 0;// FALHA
 
     int i, FLAG, Aux = 0;
@@ -126,7 +128,7 @@ if(lst == NULL || lista_vazia(lst) == 1)
     }
 
     if(FLAG == 0)
-        return 0; // FALHA
+        return 0; // FALHA - sem nros negativos na lista
     else
         return 1; // SUCESSO
 
@@ -148,7 +150,6 @@ if(lst == NULL || lista_vazia(lst) == 1)
             // deslocamento a esq do sucessor ate o final da lista
             for(i = Aux + 1; i < lst->Fim; i++)
                 lst->no[i - 1] = lst->no[i];
-
             lst->Fim--; // decremento do tempo Fim
             FLAG++;
         }else{
@@ -271,9 +272,9 @@ void intercala_lista(Lista lst, Lista lst1, Lista *lst2){
 
 // retorna implicitamente o elemento da posicao passada como parametro
 int get_elem_pos(Lista lst, int pos, int *elem) {
-    if(lst == NULL || lista_vazia(lst)|| pos <= 0 || pos > lst->Fim)
-        return 0;
+    if(lst == NULL || lista_vazia(lst)|| pos <= 0 || pos > lst->Fim) // sem lista, vazia ou posicao invalida
+        return 0; // FALHA
 
-    *elem = lst->no[pos-1];
+    *elem = lst->no[pos-1]; // subtraido de um pq vetor inicia em 0
     return 1;
 }
