@@ -149,7 +149,7 @@ int remove_no(no_p *no) {
     return 1;
 }
 
-// remove todos elementos da lista passada
+// remove todas ocorrencias de elemento da lista passada
 int remove_todos(no_p *lista, INFO_ARMAZENADA remover_ocorrencias) {
     int cont = 0;
 
@@ -157,6 +157,7 @@ int remove_todos(no_p *lista, INFO_ARMAZENADA remover_ocorrencias) {
 
     while (cursor != NULL) {
         if (cursor->info == remover_ocorrencias) {
+
             no_p aux = cursor; // cria no auxiliar porque ha de ser liberado
             cursor = cursor->prox;
 
@@ -170,7 +171,9 @@ int remove_todos(no_p *lista, INFO_ARMAZENADA remover_ocorrencias) {
                 }
                 free(aux); aux = NULL;
             }
+
             cont++;
+
         } else {
             cursor = cursor->prox;
         }
