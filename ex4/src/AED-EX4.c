@@ -28,7 +28,7 @@ int lista_vazia(Lista lst)
 // pega o tamanho da lista
 int tamanho (Lista *lst)
 {
-    return (*lst) -> info;
+    return (*lst) -> info; // lst sempre apontara pro cabecalho
 }
 
 // apaga a lista, INCLUSIVE o nó cabeçalho
@@ -181,8 +181,10 @@ int intercalar (Lista *lst1, Lista *lst2, Lista *lst3)
 
 // inverte a lista passada
 int inverte(Lista *lista) {                                                      
-    if (lista_vazia(*lista))                                                    
-        return 0;                                                               
+
+    if (lista_vazia(*lista)) {                                                
+        return 0;
+    }                                                   
                                                                                 
     Lista invertida = NULL;                                                      
                                                                                 
