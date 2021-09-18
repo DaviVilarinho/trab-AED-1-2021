@@ -331,5 +331,3 @@ int remove_vogais (Lista *lst)
 
   return 1;
 }
-
-
