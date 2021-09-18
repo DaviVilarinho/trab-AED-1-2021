@@ -116,7 +116,7 @@ INFO_ARMAZENADA_ARGUMENTO get_elem_pos(lista_p lista, int pos, int *ok) {
     }
 }
 
-// remove todas strings
+// remove todas strings que batem com a passada
 int remove_todas(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover) {
     if (!lista_vazia(lista)) {
         int i = 0;
@@ -129,7 +129,7 @@ int remove_todas(lista_p lista, INFO_ARMAZENADA_ARGUMENTO remover) {
                 i++;
             }
         }
-
+        // retornando quantas ocorrencias foram removidas
         return removidos;
     } else {
         return 0; 
