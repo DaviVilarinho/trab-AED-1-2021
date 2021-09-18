@@ -49,11 +49,15 @@ int insere_elem(Lista *lst, TIPO_DE_DADO elem)
 
 // encapsulada - facilita a remocao de um no qualquer
 void remove_no(Lista *lista, Lista *retardatario, Lista *cursor) {
-    if ((*retardatario) != NULL)
-        (*retardatario)->prox = (*cursor)->prox; // excluir, se houver, antecessor
 
-    if (*cursor == *lista)  // se for a cabeça, tem que reatribui-la
-        *lista = (*cursor)->prox;            
+    if (*cursor == *lista) {  // se for a cabeça, tem que reatribui-la
+        *lista = (*cursor)->prox;        
+    }
+
+    // anterior aponta pro proximo
+    if ((*retardatario) != NULL) {
+        (*retardatario)->prox = (*cursor)->prox; // excluir, se houver, antecessor
+    }
 
     free(*cursor);
     *cursor = NULL;
@@ -81,6 +85,7 @@ int remove_elem_pos(Lista *lista, int position)
 
         return 1;
     }
+
     return 0;
 }
 
@@ -110,8 +115,9 @@ int remove_elem(Lista *lista, TIPO_DE_DADO dado) {
 // retorna implicitamente o elemento da posicao passada como parametro
 int get_elem_pos(Lista lst, int pos, TIPO_DE_DADO *retorno_implicito)
 {
-    if (lista_vazia(lst))
+    if (lista_vazia(lst)) {
         return 0; // lista vazia nao tem elementos
+    }
 
     Lista cursor = lst;
     while (pos > 1)
@@ -138,6 +144,7 @@ TIPO_DE_DADO remove_menor(Lista *lst, int *status) {
 
     Lista cursor = (*lst)->prox;
     Lista menor  = *lst;
+
     Lista retardatario_menor = menor;
     Lista retardatario = *lst;
 
@@ -145,7 +152,6 @@ TIPO_DE_DADO remove_menor(Lista *lst, int *status) {
         if (cursor->info <= menor->info) {
             retardatario_menor = retardatario; // o queprecisamos mudar a ref
             menor = cursor;
-
         }
 
         retardatario = cursor;
@@ -153,13 +159,14 @@ TIPO_DE_DADO remove_menor(Lista *lst, int *status) {
     }
 
     TIPO_DE_DADO menor_dado = menor->info;
-
     retardatario_menor->prox = menor->prox; // mudar, no pior dos casos é ele mesmo, que vai ser removido
 
     if (menor == *lst)
         *lst = menor->prox; // caso seja a cabeça da lista, atualizá-la antes
 
-    free(menor); menor = NULL;
+    free(menor);
+    menor = NULL;
+
     *status = 1;
     return menor_dado;
 }
@@ -175,9 +182,11 @@ int apaga_lista(Lista *lst)
         while (*lst != NULL) 
         {
             cursor = *lst;
-            *lst = (*lst)->prox; // nova cabeça é o próximo
-            
-            free(cursor); cursor = NULL; // libera o atual nodo
+            *lst = (*lst)->prox; // `nova cabeça` eh o prox
+
+            // libera o atual noh
+            free(cursor);
+            cursor = NULL;
         }
         return 1;
     }
@@ -199,9 +208,11 @@ int iguais(Lista lst1, Lista lst2) {
 }
 
 // inverte uma lista
-int inverte(Lista *lista) {                                                      
-    if (lista_vazia(*lista))                                                    
-        return 0;                                                               
+int inverte(Lista *lista) {
+
+    if (lista_vazia(*lista)) {
+        return 0;                                                   
+    }
                                                                                 
     Lista invertida = NULL;                                                      
                                                                                 
@@ -211,9 +222,9 @@ int inverte(Lista *lista) {
     while (cursor != NULL) {                                                    
         save_prox = cursor->prox;                                               
         insere_elem(&invertida, cursor->info);
-        cursor = save_prox;                                                     
+        cursor = save_prox;                                                   
     }                                                                           
-                                                                                
+
     *lista = invertida;                                                         
                                                                                 
     return 1;                                                                   
