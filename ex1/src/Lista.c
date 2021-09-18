@@ -178,24 +178,28 @@ void intercala_listaORD(Lista lst, Lista lst1, Lista *lst2){
 
     int Aux, pos, pos1;
 
+    // caso alguma das duas esteja vazia
     if(lista_vazia(lst) == 1 && lista_vazia(lst1) != 1){
         (*lst2) = lst1;
     }else if(lista_vazia(lst) != 1 && lista_vazia(lst1) == 1){
         (*lst2) = lst;
-    }else{
+    }else{ // ambas populadas
 
         int tam;
 
+        // definindo (e limitando) tamanho da lista resultante
         if((lst->Fim + lst1->Fim) > MAX)
             tam = MAX;
-        else
+        else {
             tam = (lst->Fim + lst1->Fim);
+        }
 
         Aux = 0; pos = 0; pos1 = 0;
-        esvazia_lista(*lst2);
+        esvazia_lista(*lst2); // prepara a lista resultante, pra evitar erros
 
-        while(Aux < tam){
+        while(Aux < tam){ // aux eh o nosso contador
 
+            // a cada iteracao, inserimos primeiro o maior
             if(pos < lst->Fim && pos1 < lst1->Fim){
                 if(lst->no[pos] > lst1->no[pos1]){
                     insere_ord((*lst2), lst->no[pos]);
@@ -211,6 +215,7 @@ void intercala_listaORD(Lista lst, Lista lst1, Lista *lst2){
                 insere_ord((*lst2), lst->no[pos]);
                 pos++;
             }
+            // continuamos o loop
             Aux++;
         }
     }
@@ -225,6 +230,7 @@ void intercala_lista(Lista lst, Lista lst1, Lista *lst2){
 
     int Aux, pos, pos1;
 
+    // caso alguma das duas estejam vazias
     if(lista_vazia(lst) == 1 && lista_vazia(lst1) != 1){
         (*lst2) = lst1;
     }else if(lista_vazia(lst) != 1 && lista_vazia(lst1) == 1){
@@ -233,11 +239,14 @@ void intercala_lista(Lista lst, Lista lst1, Lista *lst2){
 
         int tam;
 
+        // determinando qual sera o tamanho da lista resultante
         if((lst->Fim + lst1->Fim) > MAX)
             tam = MAX;
-        else
+        else {
             tam = (lst->Fim + lst1->Fim);
+        }
 
+        // preparacoes
         Aux = 0; pos = 0; pos1 = 0;
         esvazia_lista(*lst2);
 
@@ -253,13 +262,13 @@ void intercala_lista(Lista lst, Lista lst1, Lista *lst2){
 
                 Aux += 2;
 
-            }else if(pos == lst->Fim){
+            } else if(pos == lst->Fim){
 
                 insere_fim((*lst2), lst1->no[pos1]);
                 pos1++;
                 Aux++;
 
-            }else if(pos1 == lst1->Fim){
+            } else if(pos1 == lst1->Fim){
 
                 insere_fim((*lst2), lst->no[pos]);
                 pos++;
