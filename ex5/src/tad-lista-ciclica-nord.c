@@ -106,7 +106,7 @@ int apaga_lista (Lista *lst)
       free(aux); // primeiro no eh liberado
       aux = aux2; // aux aponta pro `novo primeiro` no
     }
-    free(*lst);
+    free(*lst); // erro! tinha que ter apontado pro null
   }
 
   return 1;
